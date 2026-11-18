@@ -1,0 +1,37 @@
+# 当前外参为用户选择的跟随测试近似值，不能当作已实测的建图导航标定结果。
+robot:
+  model: scout_mini_skid
+  base_frame: base_link
+  odom_frame: odom
+  odom_topic: /scout/odom
+  # 以车体中心在地面的投影为 base_link 原点，X 向前、Y 向左、Z 向上。
+  # 包含轮胎、支架、收拢机械臂及其他突出部分的地面投影，单位 m。
+  footprint: []
+  footprint_confirmed: false
+base:
+  # 必须是 Scout 专用接口；不要填 Piper 使用的 CAN 接口。
+  can_interface: can0
+  can_interface_confirmed: true
+  # 用户确认此适配器当前接 Scout；启动时同时核对 USB 序列号，避免与 Piper 混用。
+  can_adapter_serial: "002400225246570520323934"
+camera:
+  name: nav_camera
+  serial_number: "CH28A5300TC"
+  # fixed rack camera; 手腕相机由另一套工程使用。
+  mount_locked: true
+  extrinsics_confirmed: false
+  # 用户选择：平移沿用当前仿真，视线近似水平，仅用于初步跟随测试，未做实测标定。
+  extrinsics_approximate: true
+  extrinsics_source: simulation_translation_assumed_level
+  # base_link -> nav_camera_link；不是 optical frame。
+  xyz_m: [0.20, 0.0, 0.710998]
+  # ROS RPY，单位度。朝前的相机向下俯视时 pitch 通常为正。
+  # 驱动负责 camera_link -> optical_frame，勿重复添加光学坐标旋转。
+  rpy_deg: [0.0, 0.0, 0.0]
+  color_topic: /nav_camera/color/image_raw
+  depth_topic: /nav_camera/depth/image_raw
+  camera_info_topic: /nav_camera/color/camera_info
+  points_topic: /nav_camera/depth/points
+  width: 640
+  height: 360
+  fps: 10

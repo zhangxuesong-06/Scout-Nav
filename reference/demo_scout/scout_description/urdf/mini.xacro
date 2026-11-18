@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+
+<robot name="scout_mini"
+    xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:arg name="robot_namespace" default="/" />
+    <xacro:arg name="urdf_extras" default="empty.urdf" />
+
+    <xacro:include filename="$(find scout_description)/urdf/scout_mini_wheel_1.xacro" />
+    <xacro:include filename="$(find scout_description)/urdf/scout_mini_wheel_2.xacro" />
+    <xacro:include filename="$(find scout_description)/urdf/scout_mini_wheel_3.xacro" />
+    <xacro:include filename="$(find scout_description)/urdf/scout_mini_wheel_4.xacro" />
+
+    <!-- Variables -->
+    <xacro:property name="M_PI" value="3.14159"/>
+
+    <!-- Vehicle Geometries -->
+    <xacro:property name="base_x_size" value="0.6200000" />
+    <xacro:property name="base_y_size" value="0.585000" />
+    <xacro:property name="base_z_size" value="0.235000" />
+
+    <xacro:property name="wheelbase" value="0.463951"/>
+    <xacro:property name="track" value="0.416503"/>
+    <xacro:property name="wheel_vertical_offset" value="-0.100998" />
+
+<!--    <xacro:property name="track" value="0.3426" />
+    <xacro:property name="wheelbase" value="0.3181"/>
+    <xacro:property name="wheel_vertical_offset" value="-0.160000047342231" />-->
+
+    <xacro:property name="wheel_length" value="0.8e-01" />
+    <xacro:property name="wheel_radius" value="1.600e-01" />
+
+    <!-- Base link -->
+    <link name="base_link">
+        <visual>
+            <origin
+                    xyz="0 0 0.0"
+                    rpy="1.57 0 1.57" />
+            <geometry>
+                <mesh filename="package://scout_description/meshes/scout_mini_base_link2.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin
+                    xyz="0 0 0"
+                    rpy="1.57 0 1.57" />
+          <geometry>
+            <mesh
+              filename="package://scout_description/meshes/scout_mini_base_link2.dae" />
+          </geometry>
+        </collision>
+    </link>
+    
+    <link name="arm_mount">
+      <visual>
+        <geometry>
+          <box size="0.22 0.27 0.44"/>
+        </geometry>
+        <material name="aluminum">
+          <color rgba="0.7 0.7 0.72 1.0"/>
+        </material>
+      </visual>
+
+      <collision>
+        <geometry>
+          <box size="0.22 0.27 0.44"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <mass value="5.0"/>
+        <inertia
+          ixx="0.1"
+          ixy="0"
+          ixz="0"
+          iyy="0.1"
+          iyz="0"
+          izz="0.1"/>
+      </inertial>
+    </link>
+    
+    <joint name="arm_mount_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="arm_mount"/>
+      <origin
+        xyz="0.08 0 0.24"
+        rpy="0 0 0"/>
+    </joint>
+    
+    <!-- Piper 底座固定在铝材架顶部 -->
+    <joint name="piper_mount_joint" type="fixed">
+        <parent link="arm_mount"/>
+        <child link="piper_base_link"/>
+
+        <!-- 支架顶部相对支架中心为 0.22 m -->
+        <origin xyz="-0.06 0 0.22" rpy="0 0 0"/>
+    </joint>
+
+        <!-- DabaiDCW 外观相机 -->
+    <link name="camera_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+           <box size="0.03 0.09 0.025"/>
+        </geometry>
+        <material name="DabaiDCW_camera_material">
+          <color rgba="0.18 0.18 0.18 1.0"/>
+        </material>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.08 0.08 0.06"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.25"/>
+        <inertia
+          ixx="0.0002"
+          ixy="0"
+          ixz="0"
+          iyy="0.0002"
+          iyz="0"
+          izz="0.0002"/>
+      </inertial>
+    </link>
+
+    <!-- 将摄像头固定到 Scout 车体 -->
+    <joint name="camera_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="camera_link"/>
+
+      <!--
+        Scout 车体前方为 +X。
+        这里相机中心位于车体前方 0.30 m、高度 0.30 m。
+        如果模型方向反了，先修改 rpy，不要修改传感器插件。
+      -->
+      <origin xyz="0.20 0 0.45" rpy="0 0 0"/>
+    </joint>
+
+    <!--
+      Gazebo RGB-D 相机。
+      该插件同时发布：
+        /camera/color/image_raw
+        /camera/depth/image_raw
+    -->
+    <gazebo reference="camera_link">
+      <sensor type="depth" name="dabai_dcw_camera">
+        <always_on>true</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+
+        <camera>
+          <horizontal_fov>1.047</horizontal_fov>
+
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+
+          <clip>
+            <near>0.10</near>
+            <far>10.0</far>
+          </clip>
+        </camera>
+
+        <plugin
+          name="dabai_dcw_camera_controller"
+          filename="libgazebo_ros_openni_kinect.so">
+
+          <alwaysOn>true</alwaysOn>
+          <updateRate>30.0</updateRate>
+
+          <cameraName>camera</cameraName>
+          <robotNamespace>/</robotNamespace>
+
+          <imageTopicName>color/image_raw</imageTopicName>
+          <cameraInfoTopicName>color/camera_info</cameraInfoTopicName>
+
+          <depthImageTopicName>depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
+
+          <frameName>camera_link</frameName>
+
+          <pointCloudCutoff>0.10</pointCloudCutoff>
+          <pointCloudCutoffMax>10.0</pointCloudCutoffMax>
+
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+    <!-- <joint name="chassis_link_joint" type="fixed">
+        <origin xyz="0 0 ${wheel_radius - wheel_vertical_offset}" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="chassis_link" />
+    </joint> -->
+
+    <link name="inertial_link">
+        <inertial>
+            <mass value="60" />
+            <origin xyz="0.0 0.0 0.0" />
+            <inertia ixx="2.288641" ixy="0" ixz="0" iyy="5.103976" iyz="0" izz="3.431465" />
+        </inertial>
+    </link>
+
+    <joint name="inertial_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="inertial_link" />
+    </joint>
+
+    <!-- For testing, hang the robot up in the air -->
+    <!-- <link name="world" />
+    <joint name="world_to_base_link=" type="fixed">
+        <origin xyz="0 0 0.5" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="base_link"/>
+    </joint> -->
+
+    <!-- Scout wheel macros -->
+    <!-- wheel labeled from 0 to 3, conter-clockwise, starting from front right wheel -->
+    <!-- motor 1 and 2 (left side) are mechanically installed in a reversed direction -->
+    <xacro:scout_mini_wheel_1 wheel_prefix="front_left">
+    <!--<origin
+            xyz="0 0 0"
+            rpy="0 0 0" />-->
+        <origin xyz="${wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="-1.57 0 0" />
+    </xacro:scout_mini_wheel_1>
+    <xacro:scout_mini_wheel_2 wheel_prefix="rear_left">
+    <!--<origin
+            xyz="0 0 0"
+            rpy="0 0 0" />-->
+        <origin xyz="${-wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="-1.57 0 0" />
+    </xacro:scout_mini_wheel_2>
+    <xacro:scout_mini_wheel_3 wheel_prefix="front_right">
+    <!--<origin
+            xyz="0 0 0"
+            rpy="0 0 0" />-->
+        <origin xyz="${wheelbase/2} ${-track/2} ${wheel_vertical_offset+0.001}" rpy="1.57 0 0" />
+    </xacro:scout_mini_wheel_3>
+    <xacro:scout_mini_wheel_4 wheel_prefix="rear_right">
+    <!--<origin
+           xyz="0 0 0"
+           rpy="0 0 0" />-->
+        <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset+0.001}" rpy="1.57 0 0" />
+    </xacro:scout_mini_wheel_4>
+
+    <!-- Additional definitions -->
+    <xacro:include filename="$(arg urdf_extras)" />
+    
+    <!-- 加载已经去掉 world 固定关系并加了 piper_ 前缀的模型 -->
+    <xacro:include filename="$(find piper_description)/piper_description_gazebo.xacro"/>
+
+    <!-- Gazebo definitions  -->
+    <xacro:include filename="$(find scout_description)/urdf/scout_mini.gazebo" />
+</robot>

@@ -1,0 +1,7 @@
+# Fortress RGB-D point coordinates are X-forward/Y-left/Z-up, unlike images.
+# Keep native data and assign nav_camera_link; TF carries the mount pitch.
+- ros_topic_name: /nav_camera/depth/points
+  gz_topic_name: /scout_sim/camera/points
+  ros_type_name: sensor_msgs/msg/PointCloud2
+  gz_type_name: ignition.msgs.PointCloudPacked
+  direction: GZ_TO_ROS

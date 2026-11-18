@@ -1,0 +1,529 @@
+{
+  "source": "/home/frank/demo/src/scout",
+  "model_source": "/home/frank/.gazebo/models",
+  "source_sha256": {
+    "reference/demo_scout/README.md": "73b4c865659a8a5ef330dd6e6d40bb9c108fe981847f8284c4eecdbb3233ea20",
+    "reference/demo_scout/scout_gazebo_sim/CMakeLists.txt": "e96efc39e4d2d5a4c9ea169d1ef3c1c1508b0cff03cccb2e6692ea4664b067df",
+    "reference/demo_scout/scout_gazebo_sim/CHANGELOG.md": "fbf7095a071e5b4cc1ba397fe0b209807e5425b788dfd91508390d0621e52dc6",
+    "reference/demo_scout/scout_gazebo_sim/package.xml": "318722eb5fc233e6a365e20b7c2ee908f6ee470bd49a4f3a5cc3566c273c7c07",
+    "reference/demo_scout/scout_gazebo_sim/worlds/cpr_orchard.world": "66ab927f536ce34fa71ad6a8bae55dc6ce748838c8a5d6e8d504adf8eb2a17fb",
+    "reference/demo_scout/scout_gazebo_sim/worlds/orchard1.world": "c9d8f187c303cba411ca8190a2a5dc4922d754596cceb7b96a5671f35e9951f4",
+    "reference/demo_scout/scout_gazebo_sim/worlds/weston_robot_empty.world": "47a0a0e13bb9294e51bc7ec261d9d8cd233f7543697bd9b6fce9949a4b96e841",
+    "reference/demo_scout/scout_gazebo_sim/worlds/frames.gv": "07217fac861831caebd035bb5b90bed4f6b1d13af573414548adb3fd504dc67e",
+    "reference/demo_scout/scout_gazebo_sim/worlds/clearpath_playpen.world": "dcabe221585e33229c39f22676db081eb5a18b4f439ec11729fcb29b57894091",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_mondo_dynamic_sdf14.world": "ff09d2d577451540ba4bf10ca0f671a9555d9c6d595c978d610e2ad8a21b11ef",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_mondo_campo_water_tank_sdf14.world": "ed6b8c7f3d5eb59a08198311f9717315e36f1641f119cff04733a7afb1686612",
+    "reference/demo_scout/scout_gazebo_sim/worlds/orchard.world": "154bcdef6d52ee043baa03396ba9421ba2c61b6835e7b38792933593801f102f",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_mondo_campo_pom_sdf14.world": "494d33d53345802f52532b213abeb780d684c9edac166cc30b41c768ca246329",
+    "reference/demo_scout/scout_gazebo_sim/worlds/frames.pdf": "61a6f195892818313b7d7140743a3b54e8048743f38645b8e4ab809fe076fbea",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/mondo_dynamic_sdf14.world": "491cb65f40a7dc9c735eb598adcaa64c941d2a0aeafa5bef80cb0626b5dd4b10",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/campo_pomodori_sdf14.world": "260d1acb6e7314b5d682ccf35253a4a3b2129c2550abe50f224d8e30f15e128c",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/mondo_campo_pom_sdf14.world": "c4e502090d3ae65918a77a31070d9d1deef331e72fd2903a6a2acd3a080b97c0",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/README_world.md": "149c4a29e8406ac356214adca2db6e71aca06b0dfc61db4472f65f51933adc46",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/actor_collisions_sdf14.world": "cbaa0804f5580d4054d5fb660ef12a791cdfe52e3febac3afd09c6f5d34477f6",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/actually_empty_world_sdf14.world": "063a1d6308e1afaa13232ced5d43f3d316928d4e200b3a479cccaec20cc22ce4",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/agromatic_mondo_dynamic_sdf14.world": "491cb65f40a7dc9c735eb598adcaa64c941d2a0aeafa5bef80cb0626b5dd4b10",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/mondo_campo_water_tank_sdf14.world": "2e864c3cbe8cc6d4dd4dc949c065dc903e3c09e62ef7e5e5ccd8de5a458ce52d",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/agromatic_mondo_campo_water_tank_sdf14.world": "2e864c3cbe8cc6d4dd4dc949c065dc903e3c09e62ef7e5e5ccd8de5a458ce52d",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/dinamico_sdf14.world": "4a2cc2e0149f5684919003d78a5205fcc23464ca20a15e7f7a527b01200bd56a",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/agromatic_mondo_campo_pom_sdf14.world": "c4e502090d3ae65918a77a31070d9d1deef331e72fd2903a6a2acd3a080b97c0",
+    "reference/demo_scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/campo_sdf14.world": "617e04f26cdfdc48f12d86ba4eb4e610c7f0a58110a534f3dce3206025ab11e8",
+    "reference/demo_scout/scout_gazebo_sim/include/scout_gazebo/scout_skid_steer.hpp": "71bc9c2172ec63f291d987a6bbe6c85942fd8776963b8be98eb8fd29294f2eaa",
+    "reference/demo_scout/scout_gazebo_sim/src/scout_skid_steer.cpp": "93046016b2705b38b8ffa81724a61575858c4578a7f5f89e043292b4c4a81d5c",
+    "reference/demo_scout/scout_gazebo_sim/src/scout_skid_steer_controller.cpp": "3745b709d0e19dc3e3cee2df1bb571797bf2ccf314a004054ec7c4f2f4025ac9",
+    "reference/demo_scout/scout_gazebo_sim/config/scout_v2_control.yaml": "db5ab7710a954a277072b803ac619226a43f684b85f425ae7b52a547ad2fd186",
+    "reference/demo_scout/scout_gazebo_sim/launch/scout_v2_playpen.launch": "54724b85caad7523c70013a9dfa18c771e61d4b74f303ec92f3bf20108f65b04",
+    "reference/demo_scout/scout_gazebo_sim/launch/spawn_scout_mini.launch": "8cada4ed1f468c1dfa64970769769a313f228a48642858c10afc1615f5bd2bf7",
+    "reference/demo_scout/scout_gazebo_sim/launch/scout_mini_playpen.launch": "bb6dd23f091852a0d77cf837323bea7d4e23dd47ac360ddc8845142aba4f2ede",
+    "reference/demo_scout/scout_gazebo_sim/launch/scout_empty_world.launch": "e03cff29be7c8c60f8bbfa8190cdcb9ab8f9666afd7d5422b6acd5d3a21a6b4f",
+    "reference/demo_scout/scout_gazebo_sim/launch/spawn_scout_v2.launch": "0e2c0c597d3e77e02cb8ee36724f0b8c03bf5769879d59614fdeef26803c0bac",
+    "reference/demo_scout/scout_control/CMakeLists.txt": "c83a812a7237a68c9e9b2b9b641df5ef028ec83fa2802d0c4df8fc9653cc5d35",
+    "reference/demo_scout/scout_control/package.xml": "8794c4abdc2317cb6407da60c53cddd3d8185eb1a88edb104cef16de3db7c37b",
+    "reference/demo_scout/scout_control/config/scout_mini_control.yaml": "4a9ac357bf03f5a3d5465835438a15e2e730076ae000b3168925b671f9d06d4c",
+    "reference/demo_scout/scout_control/config/twist_mux.yaml": "ed5288594065bc92165e15c3bdd3453f8795e8e844b27db7696228017802b2ef",
+    "reference/demo_scout/scout_control/config/scout2_control.yaml": "bc375bb7358d48890ab16fce0d1789197de3cb99b3a1f58a7c90cf7e8ca0862e",
+    "reference/demo_scout/image/scout_mini_gazebo.png": "2baccfa447d70e0f67af133a761db4bacc0d33913109b44ab3badfe68eb3b2fd",
+    "reference/demo_scout/image/scoutv2_gazebo.png": "5573d282d2b50edc7d1596fb6e6f25cbfe81cc8f135a49b9f90de65f180d0a6a",
+    "reference/demo_scout/image/scoutv2_rviz.png": "857eb133ebdcd1707caeada9216d9fda745da03f54f135660f8db476cf602098",
+    "reference/demo_scout/image/scout_mini_rviz.png": "bb63aefdf521ddb15a0ba3d35a5abd7ae22223cd9473768c9aaeb5a7d5ff0f08",
+    "reference/demo_scout/image/teleop.png": "b8285cbdc7f337b91eb135b333291c623efc0faab1feef9237bc63b815cfcdb7",
+    "reference/demo_scout/scout_description/CMakeLists.txt": "a6852a13073a0ca46318c8ef72fc5cf98e401fb78f2147824cba41626b0f1c59",
+    "reference/demo_scout/scout_description/package.xml": "a3cc2a8941bbf01914b804c514cfaea7f6c0d007f8e2d0b08a68ebc2d253c8a8",
+    "reference/demo_scout/scout_description/CHANGELOG.rst": "0787ffd0e56355299536bb8d4b879cf29102a419dbef0812e59343640864e91f",
+    "reference/demo_scout/scout_description/meshes/wheel_type2.dae": "ec82f61f39e26b8515fae3914c1d8bb25d55aa49338e2ee00a5e2f4867a3bfdb",
+    "reference/demo_scout/scout_description/meshes/scout_mini_base_link.STL": "13a164aadf1b0a2c20327941fd31db091f30d16ca1b50aa74a41e3d35f8417a9",
+    "reference/demo_scout/scout_description/meshes/scout_mini_base_link.dae": "5b7536b48ddecfcab48c90ece54c69ec524242ce64b6073cfd60757ad1dd478a",
+    "reference/demo_scout/scout_description/meshes/1_Link.STL": "35f8dbc512901a09297695cdcf048783adbc8891d23155583a28c3dac0af0011",
+    "reference/demo_scout/scout_description/meshes/2_Link.STL": "6704c31aed5e185c689bb130d05ebf312bad5a0ed86bd266d7aa9de4f4b6759f",
+    "reference/demo_scout/scout_description/meshes/wheel.dae": "71d7c2c16c03782d127b84fcddba7393f057566885a20c1257dcfbbf2e65439c",
+    "reference/demo_scout/scout_description/meshes/base_link_full.dae": "f6ff3078a3178e1badade33f8d250c56b36b38f8406522f2b0387a5e6ecc9e74",
+    "reference/demo_scout/scout_description/meshes/base_link.dae": "002d8911888fb8fe52712dadd3499ae4995568c461c393aa17a859be0d8742b3",
+    "reference/demo_scout/scout_description/meshes/scout_mini_base_link2.dae": "c91ba00c5822e49443202ef9cc9b512e210cca0e1c75ce91db5a8a26821dc6ad",
+    "reference/demo_scout/scout_description/meshes/4_Link.STL": "6cf4d52166ed55ecc728088a9cf2c725af7f6dc4dee213c57707f180f00f4ad0",
+    "reference/demo_scout/scout_description/meshes/wheel_type1.dae": "3fdf6a93c85dd76ee38ff625a6b4d35e7d0410840a3c0505b7b9cb1fc5ee432a",
+    "reference/demo_scout/scout_description/meshes/camera.dae": "1b8f617228ef57daaf16af6854e16a748b83d0354db908ddf9b83ef6d4f11b63",
+    "reference/demo_scout/scout_description/meshes/3_Link.STL": "890e91638dd5cc996985aac9f1cf75edbba95092534fa608cf29c889185467c8",
+    "reference/demo_scout/scout_description/meshes/dae/link4.dae": "d74c2f686f8e42e0b71044afa29f2726cddfb346f4e2d92f8566489be5882a14",
+    "reference/demo_scout/scout_description/meshes/dae/link2.dae": "64e70cd8927b3f4d23f056f978e3f1004ca8d6f6a01843ef6a5e08075be2c6f3",
+    "reference/demo_scout/scout_description/meshes/dae/camera_v2.dae": "4e279c1d30b6424f883dc8da9f6b8f833848ebc085bfb3b92475af40bb36fe8a",
+    "reference/demo_scout/scout_description/meshes/dae/gripper_base_100_v2.dae": "cb4e20bf4c7ae757b5ef8f73518229a6d7c5247c8da987410ffe418f58bc9bed",
+    "reference/demo_scout/scout_description/meshes/dae/link6.dae": "397e24f536d1f0827ab79adce41af87c016d5869098601284eefe8748510cda6",
+    "reference/demo_scout/scout_description/meshes/dae/link5.dae": "cb463d5e034adb780fea4a0b7d716d1b3b1de1535c728d747a3370bc347f95e2",
+    "reference/demo_scout/scout_description/meshes/dae/link7.dae": "7534447abb248829c447a8e19d84c6fb3903ab70ebc32dfd164abcc4099fc74a",
+    "reference/demo_scout/scout_description/meshes/dae/base_link.dae": "3c9a5f47db03dfbaa75fc2a98135bd5c7d0e3661c2a601b7372bd04e3cfdb689",
+    "reference/demo_scout/scout_description/meshes/dae/link3.dae": "c3f3f592868362852da55bdfc6fdbbfeef653bb8e226721dbdd448161f298d04",
+    "reference/demo_scout/scout_description/meshes/dae/camera_v3.dae": "c5b74840458937912aea866ca1f50d3eed6417aa390ad7066739415ba5bdcdd4",
+    "reference/demo_scout/scout_description/meshes/dae/link8.dae": "662d36ce7edf3e1cbb887302f4499a76aff75ccf1996730fa63f2a30f749adda",
+    "reference/demo_scout/scout_description/meshes/dae/link1.dae": "2bb0e08b05a4de1a1c3f073c59dde29335ba3cec9a020e0a09735108c0420b28",
+    "reference/demo_scout/scout_description/meshes/dae/camera.dae": "1b8f617228ef57daaf16af6854e16a748b83d0354db908ddf9b83ef6d4f11b63",
+    "reference/demo_scout/scout_description/urdf/scout_mini.gazebo": "97620ff8ae7473a352f88b9a223008dfbac18d169d7eb70aa2e54ab175e2d30e",
+    "reference/demo_scout/scout_description/urdf/scout_wheel.gazebo": "a6a151b974822254ff84235b56e3043f6836d87564cd5e3dc02a3778082f6a85",
+    "reference/demo_scout/scout_description/urdf/scout_v2.xacro": "31d4c9bcbae4bc2bccec75480f9273ccbbe5dad2c0696c672f5d45b86321e2f6",
+    "reference/demo_scout/scout_description/urdf/scout_wheel_type2.xacro": "bb5e5b94f35ddf070db333571b445d2f82f0022b722be4bf87f3debaa110dbe5",
+    "reference/demo_scout/scout_description/urdf/scout_v2.gazebo": "5ae080b62ba65d9dd42f1d370fee816fc8e9d6ff9f3c70cd5d8a2dbc74df9f35",
+    "reference/demo_scout/scout_description/urdf/scout_mini_wheel_1.xacro": "e733a8923eecf6358357e1c77f92003f9ce26c459b65eccd73ced72f34a5ce5c",
+    "reference/demo_scout/scout_description/urdf/scout_mini_wheel_2.xacro": "9d23e951e70466827c09e51f6647143d7abda35fff76b91bad31c79b75de8478",
+    "reference/demo_scout/scout_description/urdf/scout_mini_wheel.gazebo": "a6a151b974822254ff84235b56e3043f6836d87564cd5e3dc02a3778082f6a85",
+    "reference/demo_scout/scout_description/urdf/scout_wheel_type1.xacro": "fe41692de4d6ea75901c67980fd5d5cf52b13a759a90e4210934b0de5452db3e",
+    "reference/demo_scout/scout_description/urdf/mini.xacro": "ffe6f859ebd0e405f486787a110a6b579bbf1df8f1079140ed86490557745bc4",
+    "reference/demo_scout/scout_description/urdf/camera_link.xml": "0530a4f24074f61feed6a36be714dac9915c37b76e6860320be0b6e841742d39",
+    "reference/demo_scout/scout_description/urdf/scout_mini_wheel_3.xacro": "66bebb6bda678a03df84cf01cc060c02fba43fe56be45ebe74260685048d46cf",
+    "reference/demo_scout/scout_description/urdf/empty.urdf": "78983de792cef9129258a2c3cb46219ab31e19130b944e0e121b4fe75d10f738",
+    "reference/demo_scout/scout_description/urdf/scout_mini_wheel_4.xacro": "4738eec5608274fa47fdbd3b467b7f4cfa6ff0553877d48a2177448db79f7304",
+    "reference/demo_scout/scout_description/urdf/scout_mini.xacro": "dd9f6e477856865092051f22fb25a07879fc08156b9882403bcf2c55490e44fa",
+    "reference/demo_scout/scout_description/urdf/scout_mini.urdf": "68ebf2847e5af3546ebe62981fd8d65a54eb08714d1a94437a929790b0e69b4e",
+    "reference/demo_scout/scout_description/launch/display_scout_v2.launch": "96029adad3d7621d1a3c69e4a963b58c0389ecf52f9dab5b643f10957c7c0e5a",
+    "reference/demo_scout/scout_description/launch/gazebo.launch": "9a08ca3fabbbd1b1b2a9e1cbca56ee2916dfca4429951aa0ad028603dcff4af2",
+    "reference/demo_scout/scout_description/launch/scout_v2_stock.launch": "8e811733b05ab3e1963cef446e0b6eb236b51e39f75f7f7b4c5222215c1edb31",
+    "reference/demo_scout/scout_description/launch/display_scout_mini.launch": "31fbc980a5fb5f9021e79cdd46409dd1322b04a8e63c653adaab94f9219993ad",
+    "reference/demo_scout/scout_description/launch/scout_mini_stock.launch": "31a166b78b9abf590d2f0db8899b406a4fd809fb1d9ab71583254884b570742e",
+    "reference/demo_scout/scout_description/launch/display_mini_models.launch": "940cc9db567ae4226c31122948229571d6c7bc098d56eb13ba23cb4afa219b13",
+    "reference/demo_scout/scout_description/rviz/navigation.rviz": "405523b4a198c9330110d59b66abeab61493140add419b4179a926d24771f68d",
+    "reference/demo_scout/scout_description/rviz/model_display.rviz": "8b92f5a93194d542723dad17a6b5718842bbd44c15057cd015a68d871fdd9d71",
+    "reference/demo_scout/scout_description/rviz/scout_mini_model_display.rviz": "eafff7752127e287fb7fa3553e1c639092e023f3525fa9c4f863a48356c72727",
+    "gazebo_models/asphalt_plane/model.sdf": "877f8a04f368c4775b93db67ff09f470d2c9b458f0791224e074f06f879da6b4",
+    "gazebo_models/asphalt_plane/model-1_4.sdf": "4cf871d6e7930f67e274f231b5e880f6f5b685d7eae2661541f40e668af3cec3",
+    "gazebo_models/asphalt_plane/model.config": "ecc6ad081fd25d29c7618832befad06b4797dcdb607bc9895c6d65e2b49532e2",
+    "gazebo_models/asphalt_plane/materials/textures/tarmac.png": "ef69f9572234d43b180fb5160bb17074aa5c4e8dbff54278c6bf2baa49c79aa7",
+    "gazebo_models/asphalt_plane/materials/scripts/asphalt.material": "ea014ce328ecfe17161cc31cdaca23e38405a887853905262a95264583dba783",
+    "gazebo_models/construction_barrel/model-1_3.sdf": "e88ad3238dc67d7fc7fbe7a244d20c67ae2f8da17da5deab7aa4223e2627f6c4",
+    "gazebo_models/construction_barrel/model.sdf": "2e04ba938c29345c13f81472ccdc9d2c7e6490823c80ad5ef32e0cc24688331b",
+    "gazebo_models/construction_barrel/model-1_4.sdf": "d332065536ac40ab022be188ed477dbdfd92dd173817c78f31f0b31f45c4114b",
+    "gazebo_models/construction_barrel/model.config": "b39eadbd4de66895df1bcb5861db36a727e56c137325f649625cdadc17b1d343",
+    "gazebo_models/construction_barrel/meshes/construction_barrel.dae": "c27bd4d4964b8c896f9a1810f9fbfc91eb13d2077df464fa5b7238ffaf770c97",
+    "gazebo_models/construction_barrel/materials/textures/Construction_Barrel_Spec.png": "19e48b317b86e67dce94ead2ee0844b0e908eca2cea8a4ebf96742f31ca3d925",
+    "gazebo_models/construction_barrel/materials/textures/Construction_Barrel_Diffuse.png": "2d1a70d5b26afdc4f5a6d8b87cb4bd580160f3587fd6b55201a9e4e316d37549",
+    "gazebo_models/construction_cone/model-1_3.sdf": "1c44732d8770693bf75064721b21c452772212aecf0770cd3cd6b00d0c37a072",
+    "gazebo_models/construction_cone/model.sdf": "c212e83e8fb1a34fd3a90b8a0c8bd77c2c6476f1049713bdec7f25d7b5272d21",
+    "gazebo_models/construction_cone/model-1_4.sdf": "f00e897fd53ef6e0dbafccf768b4bc85ed39c1c6328cd1fc2d57afcd790fcec1",
+    "gazebo_models/construction_cone/model.config": "fd84139563ed43a946bc5af44e2bd115f7bb389feea43e394841c73dc39b36c7",
+    "gazebo_models/construction_cone/meshes/construction_cone.dae": "faebf94980808e3d36ce5bb4a7bd0f39b7f634d1c63fb16ec6c11c37fb65e6ca",
+    "gazebo_models/construction_cone/materials/textures/Construction_Cone_Diffuse.png": "21d556892a0002a68f944c14b6c789c24967a5e987efaf872e21e3edbeb5e8d9",
+    "gazebo_models/cpr_orchard_sdf14_world/model.sdf": "dc0d32a51f7a1951b34807fc9599debab41c8c9bea0e9f8c77a60948af1be06e",
+    "gazebo_models/cpr_orchard_sdf14_world/model.config": "e40e298feba659160c88dbc212830895523c38ac7d6bd2694bbd2c1d8fdbb0cc",
+    "gazebo_models/cpr_orchard_sdf14_world/meshes/GroundForest003_COL_VAR1_3K.jpg.001.jpg": "3c7e134f31c03b6152605bd2fc9b6c38aca55e574ce2da13588231b65098fe62",
+    "gazebo_models/cpr_orchard_sdf14_world/meshes/RustPlain007_COL_VAR1_3K.jpg.001.jpg": "d0455a631e99e7b5f3742c709d15b56e52daafff3498029f59ed87119af7774c",
+    "gazebo_models/cpr_orchard_sdf14_world/meshes/GroundMoss001_COL_1K.jpg.001.jpg": "898e7ac9cb542738e7b33b5f88d02c63605adaf1b43dc6bdb8bfbb66fb6d2047",
+    "gazebo_models/cpr_orchard_sdf14_world/meshes/orchard_leaves.dae": "14c1b2b69eed67338a9f5144b594bbd1cc9f0b4997448cb7f51ee1721c164abe",
+    "gazebo_models/cpr_orchard_sdf14_world/meshes/GroundTireTracks001_COL_3K.jpg.001.jpg": "64496572aff65586028edfd4b850eed931b23fa7a0db19cd4c5131c6c7b1b33b",
+    "gazebo_models/cpr_orchard_sdf14_world/meshes/orchard_trunks.dae": "014f6f523d6735bfb354010c90df39f8a66ad00e88aa19be55cddf19f121a6c6",
+    "gazebo_models/cpr_orchard_sdf14_world/meshes/orchard_world.dae": "355f544918399677f682a2514a12c4a8c8b6e93d04a3468e8d4e7f36d17619c0",
+    "gazebo_models/cpr_orchard_sdf14_world/meshes/Ground.png": "02bb7174e9e56468f4b578d79638084b0c97be06bc4be0b8f457aac24394096f",
+    "gazebo_models/dumpster/model-1_3.sdf": "7962fc6783993de8f5432b25ebaf431462b79e853a43fb0ffaa86ad93c39195e",
+    "gazebo_models/dumpster/model.sdf": "28b86d41bef8a349e28b461e5cc66d123659b94d3afaf871b9e63d52252f3199",
+    "gazebo_models/dumpster/model-1_4.sdf": "a09bb36c4a9f2f7c4d9ad78d826e8479dbee4020c7e81096b04d520b5b012b48",
+    "gazebo_models/dumpster/model.config": "260133f70ef6875afefb34d1cf890cd824886a8b820772145530c6edfb5b8bf9",
+    "gazebo_models/dumpster/meshes/dumpster.dae": "4e30960e97c80b3a9df5c697f876d91d213d27c1c0ddae887cd340ba245b6ff7",
+    "gazebo_models/dumpster/materials/textures/Dumpster_Spec.png": "994a5f72d9d9e691b29ef59bd103b36325e0164ead92bbd53242968bbdff4316",
+    "gazebo_models/dumpster/materials/textures/Dumpster_Diffuse.png": "981d38cf2503bac69a491adbd1f1989a41fdc43948800f08de2ba798e490a781",
+    "gazebo_models/dumpster/materials/scripts/dumpster.material": "e6a07bfd7cb29d2a15b03d4ecb1f08033ac30f008d7675fb57899a250e05cffe",
+    "gazebo_models/fire_hydrant/model.sdf": "661b5ceb48ec1fa49e294116979c38166a035cc70fdddc84c6ae35ccea18ae33",
+    "gazebo_models/fire_hydrant/model-1_4.sdf": "4a690cfac7ee5b9f3eb1f6b3730a0918bbd0978f405a1ea466691904c6fd7cf3",
+    "gazebo_models/fire_hydrant/model.config": "44d474a31261ddc27c8d25ad6fc4aba4ae1225a1195cbf42810ffae889f43a20",
+    "gazebo_models/fire_hydrant/meshes/fire_hydrant.dae": "62619b63da14653e245f7bba88c7417774518962f4ebc57def210ed8e57a937c",
+    "gazebo_models/fire_hydrant/materials/textures/fire_hydrant_spec.png": "cc1dc313cb9e9b905edd83d317f290335060fe0d98cc9cbabf56363597373395",
+    "gazebo_models/fire_hydrant/materials/textures/fire_hydrant_diffuse.png": "b089dc88690961c9aaaca7637517333635ee3d83def47b752902c8a9a5b4b2e5",
+    "gazebo_models/ground/model.sdf": "bca57c02a00ce16dd92a493711eac175d6f024e74dc6896e626f1acf61ad4d78",
+    "gazebo_models/ground/model.config": "95a4b9f0235f0727586fe08bef51c82b990e53040689a55319ddd1a93a32b4dc",
+    "gazebo_models/ground/meshes/Material_1585.jpg": "1886bdd783b486f7d1a75bccef997cfc2cf42990e3d53536e8e1bed80af3e66a",
+    "gazebo_models/ground/meshes/orchard_heightmap.png": "0b26fefd9dfd43e1e69ca9e8b5153f2e534127d2a5101089bc3b5dbbf53350d9",
+    "gazebo_models/ground/meshes/ground.dae": "7be7fa7e16e84ba224cbac49483ae7f5eab6dbf93cd0635b06f63a6056d36afe",
+    "gazebo_models/ground/meshes/Stylized_Rocks_001_roughness.jpg": "55b962a7b45a2ab528453a80d260831557d9c0cc9cd157db9aaa33184f298c12",
+    "gazebo_models/ground/meshes/Stylized_Rocks_001_basecolor.jpg": "f10c5f890d923e78d5219442a1a42d8429d47b1b3dce048f561f8c1425006622",
+    "gazebo_models/ground/meshes/Stylized_Rocks_001_normal.jpg": "de10f8c9c22e836c7e59ae371340a2985b9e640ae899b3b9e7838d7f2b453ca5",
+    "gazebo_models/ground/meshes/.gitignore": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gazebo_models/ground/meshes/Stylized_Rocks_001_ambientOcclusion.jpg": "808de12186cb422c72c1347ccb31542e8607c639639d21bd15d56e69fc21a4ee",
+    "gazebo_models/ground/meshes/Stylized_Rocks_001_height.png": "7ae09cf281742440068be76c433bc1b8b970a3bd7c0ed30a97af9ecb4e00bd47",
+    "gazebo_models/ground_plane/model-1_3.sdf": "cc2bf63d600f382bbbe81dbd3cd9363ee0436de6bda1c273cae47dfd8ea65bcf",
+    "gazebo_models/ground_plane/model.sdf": "e68642d3aeca5ff76543d75361279a1b7cd7cb790ede43301ea3d0fd0fc78abe",
+    "gazebo_models/ground_plane/model-1_4.sdf": "de8e04148a6b58735b63ea7500811ca1a1bae174d6da3a20f861c679534ddc99",
+    "gazebo_models/ground_plane/model.config": "4fefe57461ff15dd0b8931e249616eb719cf6760767a85db84762d85186ca94b",
+    "gazebo_models/ground_plane/model-1_2.sdf": "a099ecca53ba1d0af3babacb31a4e802099d896926ea9109d38f2e14e40a28d9",
+    "gazebo_models/jersey_barrier/model.sdf": "0d27ea26aa5723d9ccdbc88c43a5e4aedd79b56713546b1036937f0c4a1a5e93",
+    "gazebo_models/jersey_barrier/model-1_4.sdf": "da7a43cb804765b1a58c9d89951e691fef35b99872105c935d5c86f3ebfd30f4",
+    "gazebo_models/jersey_barrier/model.config": "2dc73c3b5aa190d64a0fafc201fb7d47f4303a4ba4153e041a3231957bb3e9a8",
+    "gazebo_models/jersey_barrier/meshes/jersey_barrier.dae": "e435b41d7ced4eb79b6c5386d9bbea8c34713f8c00f9f5149388392205e11297",
+    "gazebo_models/jersey_barrier/materials/textures/jersey_barrier_spec.png": "c1854c59a113a0e9bb15a9460037a45cf9d392ba53d7cdccaf4e0508b4a5b6cd",
+    "gazebo_models/jersey_barrier/materials/textures/jersey_barrier.png": "0ac4c5e2869896d246baefeee729ac8a0678fb03c5662b355caaf09f6ccd5dbe",
+    "gazebo_models/jersey_barrier/materials/textures/jersey_barrier_diffuse.png": "0ac4c5e2869896d246baefeee729ac8a0678fb03c5662b355caaf09f6ccd5dbe",
+    "gazebo_models/mud_box/model.sdf": "ca75dc22ee3e3d4b5247218c5fe5a8fd554ead3f8189486f82d85893ba779cfa",
+    "gazebo_models/mud_box/model-1_4.sdf": "fe1f3e6241685ba3af1aaac645f5a52e60f3a1f30a23716f8a498950d066408a",
+    "gazebo_models/mud_box/model.config": "b98c0ebe49d22d15a808031e9c85e2f2f980f9eaa0f0171cfa751717be1a2e10",
+    "gazebo_models/mud_box/materials/textures/mud_soft_leaves.png": "3dc73f1e0b47d739fcd594169a8d586021239bd31686640d42d3c574af6d2973",
+    "gazebo_models/mud_box/materials/scripts/mud.material": "d3391bc398d451c11675bc99d186a06275d82c126c6f8d47c22218b8801b83d6",
+    "gazebo_models/nist_maze_wall_120/model-1_3.sdf": "d168b586bc3f52f0c79b8403476f480b8e62b1315d5a8d30de3e9c88c0f9eba3",
+    "gazebo_models/nist_maze_wall_120/model.sdf": "4d4d91a3ff02dd9cfb604da33b29aaec5dda4b59c4629f7bed84e2f2cff7204a",
+    "gazebo_models/nist_maze_wall_120/model-1_4.sdf": "c13e4df49be537e3287e9b937c8b2db50d986ae93c50c9f492916cd12c2311f6",
+    "gazebo_models/nist_maze_wall_120/model.config": "aa62b930f4bd0d14a86c09480fd3f03281929ce2f9deb19e2a8d4d9fe4ab1fc1",
+    "gazebo_models/nist_maze_wall_120/model-1_2.sdf": "f16037afa893b98d643ea45b9e74844d227ea09a1635be14464a8e729fff9412",
+    "gazebo_models/nist_maze_wall_120/meshes/nist_maze_wall_120.dae": "40f62daa0463997737a08ad1af1a3928d70f30c08c7591ffd9571b229877ae47",
+    "gazebo_models/nist_maze_wall_120/materials/textures/plywood256x256.png": "538bc15d11816a5f6a1f8629932e4cb375100815a56574e6536eac5724256b55",
+    "gazebo_models/oak_tree/model.sdf": "f9e911ff3310451a8f6ca15545fbf478ff55ca4ebd471697aa3ab58be94fe532",
+    "gazebo_models/oak_tree/model.config": "f258f8caff9d910972c484baa4624a966731efd95a06cb66e6ab1cf26134f7c7",
+    "gazebo_models/oak_tree/meshes/oak_tree.dae": "b3edcfcf4875d2898103ee841ae6530d251730548c0575de8334d4e96d19bd27",
+    "gazebo_models/oak_tree/materials/textures/branch_diffuse.png": "f378bfa2f09f309ac79729afc0a4b6b482e5caa47ac6d982cadf1ebea880d872",
+    "gazebo_models/oak_tree/materials/textures/bark_diffuse.png": "35b52144a8c5522df4e97a9a2125231699ad143f6f7273815a47a5064660f794",
+    "gazebo_models/oak_tree/materials/scripts/caster_vp.glsl": "ed8df153446011e1d7f77c7c12f5387de99a6e3216f98661ed96c59a8b8f1d84",
+    "gazebo_models/oak_tree/materials/scripts/caster_fp.glsl": "86818f35f5b6b7e99fa4dd276c6b1090fae157a7b95d199f877b43a5bb1a394f",
+    "gazebo_models/oak_tree/materials/scripts/oak_tree.material": "da1045a12bc2e1f889eb855116c13e514a3b1ec8d780d94bf76ccf1a29defb7a",
+    "gazebo_models/person_standing/model.sdf": "bd2499f97a041d557881c2303a6b314c15df6e7f16f34413d19ee97834720cec",
+    "gazebo_models/person_standing/model.config": "5867d0c4417ded2c20d6d70857ac638eb5c16b460a0af3140dc9552c2f9e5a34",
+    "gazebo_models/person_standing/meshes/standing.dae": "bc20dd2cd005d70a35627e38cb52d4c84f3d66034b196efa28e11b10b3295c15",
+    "gazebo_models/person_standing/materials/textures/male02_diffuse_black.png": "37c166c53575369f57cf233e775f87ef225b3fe9f66ff7ba34b3abb12dcd46be",
+    "gazebo_models/person_standing/materials/textures/eyebrow001.png": "b2b15dd52470d6d073d18ebf56bcb1f3b45567cd42a2c75557c0ed2adc0f1ec1",
+    "gazebo_models/person_standing/materials/textures/jeans_basic_diffuse.png": "c4b2f9126873078ecf8a3678e28622196fa6cb47e131b6067d6ffe81919b0ca6",
+    "gazebo_models/person_standing/materials/textures/tshirt02_normals.png": "f31407a3f8ae20736f8f9693906f6ad64569032bc4afd0798c305526fa51d33d",
+    "gazebo_models/person_standing/materials/textures/young_lightskinned_male_diffuse.png": "4233a4e1e2d423daf8e5aa25521df93253be54b0ab6490147afae39b076f4fcb",
+    "gazebo_models/person_standing/materials/textures/male02_diffuse_black-unmodified.png": "d3ef0f625df4d5cea6c9cd89e00b9e86c3b488d63672f9ed5b1327a17abd60dc",
+    "gazebo_models/person_standing/materials/textures/eyebrow001-unmodified.png": "bd9d94033a85c16af38fb135f5fed4ab2e1a26982db952826e58a2672c8c9a9c",
+    "gazebo_models/person_standing/materials/textures/teeth.png": "d0afb57869c6fbb56b98f5efc4aec629ee7593e70d8dd2bfb9de923acfb65f43",
+    "gazebo_models/person_standing/materials/textures/green_eye.png": "97b79fb62dde7211c142ce398b9506d42a74bdc478230e90ec69377ffdce4e22",
+    "gazebo_models/person_standing/materials/textures/jeans01_normals.png": "2aa953834fa0bcf240fe069dc1ef283d801573e077bc5f9da04847370e9837d1",
+    "gazebo_models/person_standing/materials/textures/tshirt02_texture.png": "932e21f76307fda21692a3b4db03fcddc68127d410b4ccbf9fb5cf95ecfbc1b1",
+    "gazebo_models/pickup/model.sdf": "0c4e4557f1f5fe8d924c5e16dc54334fbaca6bd48a94345490aeeb64881f18cc",
+    "gazebo_models/pickup/model.config": "d3499b0adb4dce33998532a7a41225cfb9f50e56b8e3b453a9354d8c6aa2b022",
+    "gazebo_models/pickup/meshes/pickup.dae": "5f6a2fa88c5d29be4b83df5c2bf376b9cebae6319dc546f127a2d0efcb41f44e",
+    "gazebo_models/pickup/materials/textures/pickup_diffuse.jpg": "828211a3dde36ad50abdcd18ae677c718bc50ddb7ae33cfc9563ebf573d1e2e5",
+    "gazebo_models/pickup/materials/textures/wheels2.jpg": "d8c626c5f1463a68c34d6f46e4f98e1c5d010282530697f1358725c27fb36f15",
+    "gazebo_models/sun/model-1_3.sdf": "609613ac8ce6a38dbe6be5e2e1f7a43fa557696c5d4a4a48fa246957573d84a9",
+    "gazebo_models/sun/model.sdf": "df64a7139480ca4004629fb7bc3bf1e92b1bddc6ccfc143615a59786c837a4fb",
+    "gazebo_models/sun/model-1_4.sdf": "9ecf9281ed55a951e97b2fcb494a6d0e5a7247abff5208b2d53a06acb62b714a",
+    "gazebo_models/sun/model.config": "f6d1f0e4b3919c21fc56ad24763275838944ec9acfc60bb86e2d31f23976688c",
+    "gazebo_models/sun/model-1_2.sdf": "ec06c2561585112e6acdc77f20ce827541ea0cb1bcf1d2eab08040f34ebddc3c",
+    "gazebo_models/tomato_0/model.sdf": "fbfd024279b422d4d597447c590a63ccb73d51335d4f5d7bbd16b8972665c164",
+    "gazebo_models/tomato_0/markers.json": "55911d0b53c51a89244d835531859a94391bbbad4973fbc881d0bc15cfa629f3",
+    "gazebo_models/tomato_0/Fruit1.sdf": "3b833a269ed92ef5fb1d32ea90bfca0369f866f818377e6e8ab6ffe91587bd7b",
+    "gazebo_models/tomato_0/model.config": "f4893dbe1388793288f790f7faa9955f4977bf96502013540fcf362212b05ec2",
+    "gazebo_models/tomato_0/meshes/tomato.dae": "b86d5ce0c842bcba1e7c221d23eebca7415a7f49b101c6f8e48d7dbcd6e14e26",
+    "gazebo_models/tomato_0/meshes/.gitignore": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gazebo_models/tomato_0/materials/textures/AG15blo2.png": "c7a7b054a18f866621a0f6ead7ba094bfa5bebd72a9ccfd04189f43413a58521",
+    "gazebo_models/tomato_0/materials/textures/AG15lef1.png": "c168f11f1c5153273b8b6935d9849a01b930ece0825036b4e59904a2eae67eb3",
+    "gazebo_models/tomato_0/materials/textures/AG15frt1.png": "246c7efb25c92e8b1a6f79ade7c7deff58c59b65d3818c214a129b93758e6be5",
+    "gazebo_models/tomato_0/materials/textures/AG15blo3.png": "a7ca811c3960e9118054bd4ccbd7dd26f62af746f0912730fbbc62859ce70db1",
+    "gazebo_models/tomato_0/materials/textures/AG15frt4.png": "96f5edba9959e02a1cb4721bd48853738a86f31005d4751e05624f54d8c98026",
+    "gazebo_models/tomato_0/materials/textures/AG15frt2.png": "725731947f83ed512c65fb80b79c406d01661ea369cc8f78d95e7b0a863fc198",
+    "gazebo_models/tomato_0/materials/textures/AG15brn1.png": "2430b60b93eb9d40b3e7253d215ef368dcd91c6b8447fccb5ffe725593765467",
+    "gazebo_models/tomato_0/materials/textures/AG15blo1.png": "c00d5aa184563f86e0db5219869c34d64522e465ba5b1c52ce2173d1026798cb",
+    "gazebo_models/tomato_0/materials/textures/AG15frt3.png": "9cfb84221804914b70d17614b4fae6cfe548082cff6e25c29811caa659c5c571",
+    "gazebo_models/tomato_0/materials/textures/AG15lef2.png": "367d998854712bed7ab0355d94cb030cbe19a5f551a89be1307b49520a81e762",
+    "gazebo_models/tomato_0/materials/scripts/frt1.material": "ec347065c2030cb9bbf00068896084a804d66cb32adae6830766d4caa6e1d577",
+    "gazebo_models/tomato_0/tomato_fruit/model.sdf": "1c5ffab6c83f2a2f05929b98f7a26923c53bee1928fe4d5ce9bd8e09c297cc08",
+    "gazebo_models/tomato_0/tomato_fruit/_model.sdf": "fbfd024279b422d4d597447c590a63ccb73d51335d4f5d7bbd16b8972665c164",
+    "gazebo_models/tomato_0/tomato_fruit/model.config": "e41a3f3db58905298b30779155839985f0bf15b3ca072ac2d3314a0cd1d95718",
+    "gazebo_models/tomato_0/tomato_fruit/meshes/tomato.dae": "c0d836b26c1407216ecc9f60da3c2f0a1fa6879f3b52f594dceb7c866d7db707",
+    "gazebo_models/tomato_0/tomato_fruit/meshes/.gitignore": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gazebo_models/tomato_0/tomato_fruit/materials/textures/AG15blo2.png": "c7a7b054a18f866621a0f6ead7ba094bfa5bebd72a9ccfd04189f43413a58521",
+    "gazebo_models/tomato_0/tomato_fruit/materials/textures/AG15lef1.png": "c168f11f1c5153273b8b6935d9849a01b930ece0825036b4e59904a2eae67eb3",
+    "gazebo_models/tomato_0/tomato_fruit/materials/textures/AG15frt1.png": "246c7efb25c92e8b1a6f79ade7c7deff58c59b65d3818c214a129b93758e6be5",
+    "gazebo_models/tomato_0/tomato_fruit/materials/textures/AG15blo3.png": "a7ca811c3960e9118054bd4ccbd7dd26f62af746f0912730fbbc62859ce70db1",
+    "gazebo_models/tomato_0/tomato_fruit/materials/textures/AG15frt4.png": "96f5edba9959e02a1cb4721bd48853738a86f31005d4751e05624f54d8c98026",
+    "gazebo_models/tomato_0/tomato_fruit/materials/textures/AG15frt2.png": "725731947f83ed512c65fb80b79c406d01661ea369cc8f78d95e7b0a863fc198",
+    "gazebo_models/tomato_0/tomato_fruit/materials/textures/AG15brn1.png": "2430b60b93eb9d40b3e7253d215ef368dcd91c6b8447fccb5ffe725593765467",
+    "gazebo_models/tomato_0/tomato_fruit/materials/textures/AG15blo1.png": "c00d5aa184563f86e0db5219869c34d64522e465ba5b1c52ce2173d1026798cb",
+    "gazebo_models/tomato_0/tomato_fruit/materials/textures/AG15frt3.png": "9cfb84221804914b70d17614b4fae6cfe548082cff6e25c29811caa659c5c571",
+    "gazebo_models/tomato_0/tomato_fruit/materials/textures/AG15lef2.png": "367d998854712bed7ab0355d94cb030cbe19a5f551a89be1307b49520a81e762",
+    "gazebo_models/tomato_0/tomato_fruit/materials/scripts/frt1.material": "ba4ad364d8b223e8092542a1d63d2be12db91b3312319018885d4411c2edf8d4",
+    "gazebo_models/tomato_fruit/model.sdf": "a50bdeafab12cbbb2ba95fca8e5a34c767be815b1b7a381d71487c3a3159d9e0",
+    "gazebo_models/tomato_fruit/model.config": "8ea1b932d82688cca7c850d7affda571e1881064e90bb6f18cf632316d43727c",
+    "gazebo_models/tree/model.sdf": "7007d4b9080c8c7882be20505133b7bfa9f6aa5b5741c064d64e4ed68c0ef4d5",
+    "gazebo_models/tree/model.config": "7dcd063e7f348be1451cdb75b1c4913147a0d400e7758644b45a63b3739bdfdf",
+    "gazebo_models/tree/meshes/tomato.dae": "cfc055d204a04e68924b9663d7522be07c04b93f41ccfb4faa1cdd02df30cc68",
+    "gazebo_models/tree/meshes/.gitignore": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gazebo_models/tree/materials/textures/AG15blo2.png": "c7a7b054a18f866621a0f6ead7ba094bfa5bebd72a9ccfd04189f43413a58521",
+    "gazebo_models/tree/materials/textures/AG15lef1.png": "c168f11f1c5153273b8b6935d9849a01b930ece0825036b4e59904a2eae67eb3",
+    "gazebo_models/tree/materials/textures/AG15frt1.png": "246c7efb25c92e8b1a6f79ade7c7deff58c59b65d3818c214a129b93758e6be5",
+    "gazebo_models/tree/materials/textures/AG15blo3.png": "a7ca811c3960e9118054bd4ccbd7dd26f62af746f0912730fbbc62859ce70db1",
+    "gazebo_models/tree/materials/textures/AG15frt4.png": "96f5edba9959e02a1cb4721bd48853738a86f31005d4751e05624f54d8c98026",
+    "gazebo_models/tree/materials/textures/AG15frt2.png": "725731947f83ed512c65fb80b79c406d01661ea369cc8f78d95e7b0a863fc198",
+    "gazebo_models/tree/materials/textures/AG15brn1.png": "2430b60b93eb9d40b3e7253d215ef368dcd91c6b8447fccb5ffe725593765467",
+    "gazebo_models/tree/materials/textures/AG15blo1.png": "c00d5aa184563f86e0db5219869c34d64522e465ba5b1c52ce2173d1026798cb",
+    "gazebo_models/tree/materials/textures/AG15frt3.png": "9cfb84221804914b70d17614b4fae6cfe548082cff6e25c29811caa659c5c571",
+    "gazebo_models/tree/materials/textures/AG15lef2.png": "367d998854712bed7ab0355d94cb030cbe19a5f551a89be1307b49520a81e762",
+    "gazebo_models/tree/materials/scripts/tree.material": "080501d9053f73a83b625b7377e1035f99e9345e9e03e7dc62d6d64f4bef21ea",
+    "gazebo_models/water_tank/model.sdf": "8c88f51168e4e3d8bfdaf6112bee54f6d70f57af1a57b0027d2fae21d8e82d47",
+    "gazebo_models/water_tank/model.config": "ea2a75fc14c3bb96fd528691246336dbb59610df45cdc222319e3477eafe8020",
+    "gazebo_models/water_tank/meshes/water_tank.dae": "50a5456851f15e99df9cb7692d943eec6c68edcef1ed4acc06c03020d476c289"
+  },
+  "models": [
+    "asphalt_plane",
+    "construction_barrel",
+    "construction_cone",
+    "cpr_orchard_sdf14_world",
+    "dumpster",
+    "fire_hydrant",
+    "ground",
+    "ground_plane",
+    "jersey_barrier",
+    "mud_box",
+    "nist_maze_wall_120",
+    "oak_tree",
+    "person_standing",
+    "pickup",
+    "sun",
+    "tomato_0",
+    "tomato_fruit",
+    "tree",
+    "water_tank"
+  ],
+  "worlds": {
+    "agromatic_mondo_campo_pom_sdf14": {
+      "file": "agromatic_mondo_campo_pom_sdf14.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_mondo_campo_pom_sdf14.world",
+      "material_conversions": 788,
+      "notes": [
+        "baked 158 existing model/include poses from Classic saved state at sim_time 25129 941000000; removed runtime snapshot"
+      ],
+      "saved_layout": {
+        "sim_time": "25129 941000000",
+        "model_poses": 158,
+        "unmatched_state_models": []
+      }
+    },
+    "agromatic_mondo_campo_water_tank_sdf14": {
+      "file": "agromatic_mondo_campo_water_tank_sdf14.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_mondo_campo_water_tank_sdf14.world",
+      "material_conversions": 788,
+      "notes": [
+        "baked 159 existing model/include poses from Classic saved state at sim_time 25240 560000000; removed runtime snapshot"
+      ],
+      "saved_layout": {
+        "sim_time": "25240 560000000",
+        "model_poses": 159,
+        "unmatched_state_models": []
+      }
+    },
+    "agromatic_mondo_dynamic_sdf14": {
+      "file": "agromatic_mondo_dynamic_sdf14_static.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_mondo_dynamic_sdf14.world",
+      "material_conversions": 787,
+      "notes": [
+        "2 actors replaced by static people at first waypoints; no walking or skeletal collisions",
+        "baked 157 existing model/include poses from Classic saved state at sim_time 24659 273000000; removed runtime snapshot"
+      ],
+      "saved_layout": {
+        "sim_time": "24659 273000000",
+        "model_poses": 157,
+        "unmatched_state_models": [
+          "ground_plane"
+        ]
+      }
+    },
+    "agromatic_world_only_sdf14/actor_collisions_sdf14": {
+      "file": "agromatic_world_only_sdf14/actor_collisions_sdf14_static.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/actor_collisions_sdf14.world",
+      "material_conversions": 0,
+      "notes": [
+        "1 actors replaced by static people at first waypoints; no walking or skeletal collisions"
+      ]
+    },
+    "agromatic_world_only_sdf14/actually_empty_world_sdf14": {
+      "file": "agromatic_world_only_sdf14/actually_empty_world_sdf14.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/actually_empty_world_sdf14.world",
+      "material_conversions": 0,
+      "notes": [
+        "baked 0 existing model/include poses from Classic saved state at sim_time 35 515000000; removed runtime snapshot"
+      ],
+      "saved_layout": {
+        "sim_time": "35 515000000",
+        "model_poses": 0,
+        "unmatched_state_models": [
+          "oak_tree",
+          "oak_tree_clone",
+          "oak_tree_clone_0",
+          "oak_tree_clone_1",
+          "oak_tree_clone_2",
+          "oak_tree_clone_3",
+          "oak_tree_clone_4",
+          "oak_tree_clone_5",
+          "oak_tree_clone_6",
+          "oak_tree_clone_7",
+          "oak_tree_clone_8",
+          "oak_tree_clone_9"
+        ]
+      }
+    },
+    "agromatic_world_only_sdf14/agromatic_mondo_campo_pom_sdf14": {
+      "file": "agromatic_world_only_sdf14/agromatic_mondo_campo_pom_sdf14.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/agromatic_mondo_campo_pom_sdf14.world",
+      "material_conversions": 788,
+      "notes": [
+        "baked 158 existing model/include poses from Classic saved state at sim_time 25129 941000000; removed runtime snapshot"
+      ],
+      "saved_layout": {
+        "sim_time": "25129 941000000",
+        "model_poses": 158,
+        "unmatched_state_models": []
+      }
+    },
+    "agromatic_world_only_sdf14/agromatic_mondo_campo_water_tank_sdf14": {
+      "file": "agromatic_world_only_sdf14/agromatic_mondo_campo_water_tank_sdf14.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/agromatic_mondo_campo_water_tank_sdf14.world",
+      "material_conversions": 788,
+      "notes": [
+        "baked 159 existing model/include poses from Classic saved state at sim_time 25240 560000000; removed runtime snapshot"
+      ],
+      "saved_layout": {
+        "sim_time": "25240 560000000",
+        "model_poses": 159,
+        "unmatched_state_models": []
+      }
+    },
+    "agromatic_world_only_sdf14/agromatic_mondo_dynamic_sdf14": {
+      "file": "agromatic_world_only_sdf14/agromatic_mondo_dynamic_sdf14_static.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/agromatic_mondo_dynamic_sdf14.world",
+      "material_conversions": 787,
+      "notes": [
+        "2 actors replaced by static people at first waypoints; no walking or skeletal collisions",
+        "baked 157 existing model/include poses from Classic saved state at sim_time 24659 273000000; removed runtime snapshot"
+      ],
+      "saved_layout": {
+        "sim_time": "24659 273000000",
+        "model_poses": 157,
+        "unmatched_state_models": [
+          "ground_plane"
+        ]
+      }
+    },
+    "agromatic_world_only_sdf14/campo_pomodori_sdf14": {
+      "file": "agromatic_world_only_sdf14/campo_pomodori_sdf14.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/campo_pomodori_sdf14.world",
+      "material_conversions": 511,
+      "notes": [
+        "baked 111 existing model/include poses from Classic saved state at sim_time 4372 177000000; removed runtime snapshot"
+      ],
+      "saved_layout": {
+        "sim_time": "4372 177000000",
+        "model_poses": 111,
+        "unmatched_state_models": []
+      }
+    },
+    "agromatic_world_only_sdf14/campo_sdf14": {
+      "file": "agromatic_world_only_sdf14/campo_sdf14.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/campo_sdf14.world",
+      "material_conversions": 491,
+      "notes": [
+        "baked 99 existing model/include poses from Classic saved state at sim_time 4109 902000000; removed runtime snapshot"
+      ],
+      "saved_layout": {
+        "sim_time": "4109 902000000",
+        "model_poses": 99,
+        "unmatched_state_models": []
+      }
+    },
+    "agromatic_world_only_sdf14/dinamico_sdf14": {
+      "file": "agromatic_world_only_sdf14/dinamico_sdf14_static.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/dinamico_sdf14.world",
+      "material_conversions": 4,
+      "notes": [
+        "1 actors replaced by static people at first waypoints; no walking or skeletal collisions"
+      ]
+    },
+    "agromatic_world_only_sdf14/mondo_campo_pom_sdf14": {
+      "file": "agromatic_world_only_sdf14/mondo_campo_pom_sdf14.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/mondo_campo_pom_sdf14.world",
+      "material_conversions": 788,
+      "notes": [
+        "baked 158 existing model/include poses from Classic saved state at sim_time 25129 941000000; removed runtime snapshot"
+      ],
+      "saved_layout": {
+        "sim_time": "25129 941000000",
+        "model_poses": 158,
+        "unmatched_state_models": []
+      }
+    },
+    "agromatic_world_only_sdf14/mondo_campo_water_tank_sdf14": {
+      "file": "agromatic_world_only_sdf14/mondo_campo_water_tank_sdf14.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/mondo_campo_water_tank_sdf14.world",
+      "material_conversions": 788,
+      "notes": [
+        "baked 159 existing model/include poses from Classic saved state at sim_time 25240 560000000; removed runtime snapshot"
+      ],
+      "saved_layout": {
+        "sim_time": "25240 560000000",
+        "model_poses": 159,
+        "unmatched_state_models": []
+      }
+    },
+    "agromatic_world_only_sdf14/mondo_dynamic_sdf14": {
+      "file": "agromatic_world_only_sdf14/mondo_dynamic_sdf14_static.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/agromatic_world_only_sdf14/mondo_dynamic_sdf14.world",
+      "material_conversions": 787,
+      "notes": [
+        "2 actors replaced by static people at first waypoints; no walking or skeletal collisions",
+        "baked 157 existing model/include poses from Classic saved state at sim_time 24659 273000000; removed runtime snapshot"
+      ],
+      "saved_layout": {
+        "sim_time": "24659 273000000",
+        "model_poses": 157,
+        "unmatched_state_models": [
+          "ground_plane"
+        ]
+      }
+    },
+    "clearpath_playpen": {
+      "file": "clearpath_playpen.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/clearpath_playpen.world",
+      "material_conversions": 4,
+      "notes": [
+        "baked 36 existing model/include poses from Classic saved state at sim_time 1298 470000000; removed runtime snapshot"
+      ],
+      "saved_layout": {
+        "sim_time": "1298 470000000",
+        "model_poses": 36,
+        "unmatched_state_models": []
+      }
+    },
+    "cpr_orchard": {
+      "file": "cpr_orchard.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/cpr_orchard.world",
+      "material_conversions": 0,
+      "notes": []
+    },
+    "orchard": {
+      "file": "orchard.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/orchard.world",
+      "material_conversions": 0,
+      "notes": []
+    },
+    "orchard1": {
+      "file": "orchard1.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/orchard1.world",
+      "material_conversions": 41,
+      "notes": [
+        "added sdf wrapper and closing world tag",
+        "renamed duplicate model tomato_0 -> tomato_0_1",
+        "renamed duplicate model tomato_0 -> tomato_0_2",
+        "renamed duplicate model tomato_0 -> tomato_0_3"
+      ]
+    },
+    "weston_robot_empty": {
+      "file": "weston_robot_empty.sdf",
+      "source": "/home/frank/demo/src/scout/scout_gazebo_sim/worlds/weston_robot_empty.world",
+      "material_conversions": 0,
+      "notes": []
+    }
+  },
+  "missing_source_textures": [
+    "tomato_0: tomato/lef3: ../textures/AG15lef3.png"
+  ]
+}

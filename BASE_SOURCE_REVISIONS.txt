@@ -1,0 +1,2 @@
+scout_ros2: bf0110ff44cc70cdda2931d69f0e2669a3e26b9d
+ugv_sdk: f2704eacdc90357078cd93ec60aae08bb4baab35

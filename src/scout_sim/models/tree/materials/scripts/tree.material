@@ -1,0 +1,159 @@
+material Tree/Branch
+{
+  technique
+  {
+    pass
+    {
+      ambient 1 1 1 1
+      diffuse 1 1 1 1
+      texture_unit
+      {
+        texture AG15brn1.png
+      }
+    }
+  }
+}
+
+material Tree/Leaf1
+{
+  technique
+  {
+    pass
+    {
+      ambient 1 1 1 1
+      diffuse 1 1 1 1
+      texture_unit
+      {
+        texture AG15lef1.png
+      }
+    }
+  }
+}
+
+material Tree/Leaf2
+{
+  technique
+  {
+    pass
+    {
+      ambient 1 1 1 1
+      diffuse 1 1 1 1
+      texture_unit
+      {
+        texture AG15lef2.png
+      }
+    }
+  }
+}
+
+material Tree/Fruit1
+{
+  technique
+  {
+    pass
+    {
+      ambient 1 1 1 1
+      diffuse 1 1 1 1
+      texture_unit
+      {
+        texture AG15frt1.png
+      }
+    }
+  }
+}
+
+material Tree/Fruit2
+{
+  technique
+  {
+    pass
+    {
+      ambient 1 1 1 1
+      diffuse 1 1 1 1
+      texture_unit
+      {
+        texture AG15frt2.png
+      }
+    }
+  }
+}
+
+material Tree/Fruit3
+{
+  technique
+  {
+    pass
+    {
+      ambient 1 1 1 1
+      diffuse 1 1 1 1
+      texture_unit
+      {
+        texture AG15frt3.png
+      }
+    }
+  }
+}
+
+material Tree/Fruit4
+{
+  technique
+  {
+    pass
+    {
+      ambient 1 1 1 1
+      diffuse 1 1 1 1
+      texture_unit
+      {
+        texture AG15frt4.png
+      }
+    }
+  }
+}
+
+material Tree/Blossom1
+{
+  technique
+  {
+    pass
+    {
+      ambient 1 1 1 1
+      diffuse 1 1 1 1
+      texture_unit
+      {
+        texture AG15blo1.png
+      }
+    }
+  }
+}
+
+material Tree/Blossom2
+{
+  technique
+  {
+    pass
+    {
+      ambient 1 1 1 1
+      diffuse 1 1 1 1
+      texture_unit
+      {
+        texture AG15blo2.png
+      }
+    }
+  }
+}
+
+material Tree/Blossom3
+{
+  technique
+  {
+    pass
+    {
+      ambient 1 1 1 1
+      diffuse 1 1 1 1
+      texture_unit
+      {
+        texture AG15blo3.png
+      }
+    }
+  }
+}

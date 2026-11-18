@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.8">
+  <world name="scout_world">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <model name="mud_box_0_clone">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>8 10 0.2</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual_1">
+          <pose>-0 0 0 0 -0 0</pose>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>4 5 0.2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1.0</ambient>
+            <diffuse>0.5 0.5 0.5 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://mud_box/materials/textures/mud_soft_leaves.png</albedo_map>
+                <metalness>0</metalness>
+                <roughness>0.8</roughness>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <visual name="visual_2">
+          <pose>2 2.5 0 0 -0 0</pose>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>4 5 0.2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1.0</ambient>
+            <diffuse>0.5 0.5 0.5 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://mud_box/materials/textures/mud_soft_leaves.png</albedo_map>
+                <metalness>0</metalness>
+                <roughness>0.8</roughness>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <visual name="visual_3">
+          <pose>2 -2.5 0 0 -0 0</pose>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>4 5 0.2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1.0</ambient>
+            <diffuse>0.5 0.5 0.5 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://mud_box/materials/textures/mud_soft_leaves.png</albedo_map>
+                <metalness>0</metalness>
+                <roughness>0.8</roughness>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <visual name="visual_4">
+          <pose>-2 -2.5 0 0 -0 0</pose>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>4 5 0.2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1.0</ambient>
+            <diffuse>0.5 0.5 0.5 1.0</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://mud_box/materials/textures/mud_soft_leaves.png</albedo_map>
+                <metalness>0</metalness>
+                <roughness>0.8</roughness>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>7.23243 10.1706 0 0 -0 0</pose>
+    </model>
+    <include>
+      <uri>model://person_standing</uri>
+      <name>actor_static</name>
+      <pose>-3.5 5 0 0 0 -1.57</pose>
+      <static>true</static>
+    </include>
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin filename="ignition-gazebo-physics-system" name="ignition::gazebo::systems::Physics" />
+    <plugin filename="ignition-gazebo-user-commands-system" name="ignition::gazebo::systems::UserCommands" />
+    <plugin filename="ignition-gazebo-scene-broadcaster-system" name="ignition::gazebo::systems::SceneBroadcaster" />
+    <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+  </world>
+</sdf>

@@ -1,0 +1,39 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+Visualization Manager:
+  Class: ""
+  Global Options:
+    Fixed Frame: odom
+    Background Color: 45; 45; 45
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+    - Class: rviz_default_plugins/RobotModel
+      Name: Scout Mini
+      Enabled: true
+      Description Source: Topic
+      Description Topic:
+        Value: /robot_description
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Enabled: false
+    - Class: rviz_default_plugins/PointCloud2
+      Name: RGB-D points
+      Enabled: true
+      Topic:
+        Value: /nav_camera/depth/points
+        Reliability Policy: Reliable
+      Size (Pixels): 2
+      Color Transformer: RGB8
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 5
+      Pitch: 0.5
+      Yaw: 0.8
+      Target Frame: base_link
+Window Geometry:
+  Width: 1280
+  Height: 800

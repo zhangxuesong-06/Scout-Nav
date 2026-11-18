@@ -1,0 +1,140 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <light name="sun" type="directional">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1.0 1.0 1.0 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 -0.5 -1.0</direction>
+    </light>
+
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <gravity>0 0 -9.8</gravity>
+    </physics>
+
+    <scene>
+      <ambient>1 1 1 1</ambient>
+      <background>1 1 1 1</background>
+      <shadows>true</shadows>
+      <sky>
+        <clouds>
+          <speed>12</speed>
+        </clouds>
+      </sky>
+    </scene>
+
+    <!-- Origin placed on a random olive orchard somewhere in Greece, kept from the original world. -->
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>39.512152</latitude_deg>
+      <longitude_deg>22.426669</longitude_deg>
+      <elevation>344</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+
+    <!--
+      Converted from urdf/orchard_geometry.urdf.xacro.
+      The original xacro loads three visual meshes:
+        - orchard_world.dae: terrain / road surface
+        - orchard_trunks.dae: tree trunks
+        - orchard_leaves.dae: tree canopies
+      and two collision meshes:
+        - orchard_world.dae
+        - orchard_trunks.dae
+      All mesh poses preserve the original yaw rotation: pi/2 = 1.5707963267948966 rad.
+    -->
+    <model name="orchard_geometry">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="orchard_world_link">
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+
+        <visual name="orchard_world_visual">
+          <pose>0 0 0 0 0 1.5707963267948966</pose>
+          <geometry>
+            <mesh>
+              <uri>model://cpr_orchard_sdf14_world/meshes/orchard_world.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+
+        <visual name="orchard_trunks_visual">
+          <pose>0 0 0 0 0 1.5707963267948966</pose>
+          <geometry>
+            <mesh>
+              <uri>model://cpr_orchard_sdf14_world/meshes/orchard_trunks.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+
+        <visual name="orchard_leaves_visual">
+          <pose>0 0 0 0 0 1.5707963267948966</pose>
+          <geometry>
+            <mesh>
+              <uri>model://cpr_orchard_sdf14_world/meshes/orchard_leaves.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+
+        <collision name="orchard_world_collision">
+          <pose>0 0 0 0 0 1.5707963267948966</pose>
+          <geometry>
+            <mesh>
+              <uri>model://cpr_orchard_sdf14_world/meshes/orchard_world.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+
+        <collision name="orchard_trunks_collision">
+          <pose>0 0 0 0 0 1.5707963267948966</pose>
+          <geometry>
+            <mesh>
+              <uri>model://cpr_orchard_sdf14_world/meshes/orchard_trunks.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+    <gui fullscreen="0">
+      <camera name="user_camera">
+        <pose>-22.383711 -8.878892 23.248871 0 0.779645 1.336590</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+  </world>
+</sdf>
+

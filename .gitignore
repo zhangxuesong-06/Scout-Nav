@@ -1,0 +1,51 @@
+# ROS / colcon 生成文件
+/build/
+/install/
+/log/
+/Log/
+/logs/
+/devel/
+/build_isolated/
+/devel_isolated/
+/install_isolated/
+
+# 本地采集、训练、地图和下载缓存
+/runs/
+/datasets/
+/maps/
+/bags/
+/research/
+/src/*.download/
+*.bag
+*.db3
+*.mcap
+*.log
+
+# Python 环境和缓存
+.venv*/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# 本机编辑器、临时文件与环境变量
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo
+*~
+.env
+.env.*
+!.env.example
+
+# 权重随仓库提交；不要添加全局 *.pt 或 models/ 忽略规则。
+!/models/
+!/models/**
+!/src/scout_visual_follow/models/
+!/src/scout_visual_follow/models/*.pt

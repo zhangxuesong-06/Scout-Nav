@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.8">
+  <model name="Dumpster">
+    <link name="link">
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <scale>1.5 1.5 1.5</scale>
+            <uri>model://dumpster/meshes/dumpster.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <scale>1.5 1.5 1.5</scale>
+            <uri>model://dumpster/meshes/dumpster.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>.65 .65 .65 1</ambient>
+          <diffuse>.65 .65 .65 1</diffuse>
+          <pbr>
+            <metal>
+              <albedo_map>model://dumpster/materials/textures/Dumpster_Diffuse.png</albedo_map>
+              <metalness>0</metalness>
+              <roughness>0.8</roughness>
+            </metal>
+          </pbr>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

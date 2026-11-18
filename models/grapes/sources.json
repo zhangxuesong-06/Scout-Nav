@@ -1,0 +1,33 @@
+[
+  {
+    "local": "/home/frank/scout/models/grapes/veda_yolov8n_maturity.pt",
+    "repo": "https://github.com/VEDAVARSHAN/grape-counting-ripeness-detection",
+    "url": "https://raw.githubusercontent.com/VEDAVARSHAN/grape-counting-ripeness-detection/main/runs/detect/train/weights/best.pt",
+    "bytes": 6236330,
+    "sha256": "f1c1a5219d6badebd329a23f5729412b7afb863d93aef6271633ec48e50665db",
+    "git_blob_sha": "2a1b770a96b84a2d7b6fc89defa7513b20a7ee3f"
+  },
+  {
+    "local": "/home/frank/scout/models/grapes/deepanik_yolo11n_seg.pt",
+    "repo": "https://github.com/deepanik/Grape-seg",
+    "url": "https://raw.githubusercontent.com/deepanik/Grape-seg/main/paper_results/training_runs/yolov11/weights/best.pt",
+    "bytes": 6089508,
+    "sha256": "0bd05454c1e63df6a1895df01e20c2114c3ce4aaea29976c3fb9f169ec71aeb6",
+    "git_blob_sha": "e2b64d02e994f9562d81d39ada8aa571eded28a5"
+  },
+  {
+    "local": "/home/frank/scout/models/grapes/sandeep_yolo11s.pt",
+    "repo": "https://github.com/sandeepiitism/GrapesDetection_yolov11",
+    "url": "https://raw.githubusercontent.com/sandeepiitism/GrapesDetection_yolov11/main/best.pt",
+    "bytes": 19184787,
+    "sha256": "4177d0c4344efbefcfedc98892d2bbf7c4b334a716c077c1c3923f2d36adbb27",
+    "git_blob_sha": "345689dbce30013fc0b818975b9c04d3a450ff73"
+  },
+  {
+    "local": "/home/frank/scout/models/grapes/wgisd-grape-cluster-detection-v1.pt",
+    "repo": "https://github.com/Emerson-MT/yolov8-grape-cluster-yield",
+    "url": "https://raw.githubusercontent.com/Emerson-MT/yolov8-grape-cluster-yield/main/models/wgisd-grape-cluster-detection-v1.pt",
+    "bytes": 22539215,
+    "sha256": "7653f0cd2157e379522f2074f740ea906172b3512ffdcb674fbcb3a1b59ae8f2"
+  }
+]

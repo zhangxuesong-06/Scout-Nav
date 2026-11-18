@@ -1,0 +1,555 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="orchard">
+
+    <!--  光照 -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- 地面 -->
+    <include>
+      <uri>model://ground</uri>
+      <name>ground_plane</name>
+    </include>
+    <!--  果园（两排） -->
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_0_0</name>
+        <pose>-7.5 -7.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_0_1</name>
+        <pose>-7.5 -6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_0_2</name>
+        <pose>-7.5 -4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_0_3</name>
+        <pose>-7.5 -3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_0_4</name>
+        <pose>-7.5 -1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_0_5</name>
+        <pose>-7.5 0.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_0_6</name>
+        <pose>-7.5 1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_0_7</name>
+        <pose>-7.5 3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_0_8</name>
+        <pose>-7.5 4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_0_9</name>
+        <pose>-7.5 6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_0_10</name>
+        <pose>-7.5 7.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_1_0</name>
+        <pose>-5.0 -7.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_1_1</name>
+        <pose>-5.0 -6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_1_2</name>
+        <pose>-5.0 -4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_1_3</name>
+        <pose>-5.0 -3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_1_4</name>
+        <pose>-5.0 -1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_1_5</name>
+        <pose>-5.0 0.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_1_6</name>
+        <pose>-5.0 1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_1_7</name>
+        <pose>-5.0 3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_1_8</name>
+        <pose>-5.0 4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_1_9</name>
+        <pose>-5.0 6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_1_10</name>
+        <pose>-5.0 7.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_2_0</name>
+        <pose>-2.5 -7.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_2_1</name>
+        <pose>-2.5 -6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_2_2</name>
+        <pose>-2.5 -4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_2_3</name>
+        <pose>-2.5 -3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_2_4</name>
+        <pose>-2.5 -1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_2_5</name>
+        <pose>-2.5 0.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_2_6</name>
+        <pose>-2.5 1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_2_7</name>
+        <pose>-2.5 3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_2_8</name>
+        <pose>-2.5 4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_2_9</name>
+        <pose>-2.5 6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_2_10</name>
+        <pose>-2.5 7.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_3_0</name>
+        <pose>0.0 -7.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_3_1</name>
+        <pose>0.0 -6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_3_2</name>
+        <pose>0.0 -4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_3_3</name>
+        <pose>0.0 -3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_3_4</name>
+        <pose>0.0 -1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_3_5</name>
+        <pose>0.0 0.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_3_6</name>
+        <pose>0.0 1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_3_7</name>
+        <pose>0.0 3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_3_8</name>
+        <pose>0.0 4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_3_9</name>
+        <pose>0.0 6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_3_10</name>
+        <pose>0.0 7.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_4_0</name>
+        <pose>2.5 -7.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_4_1</name>
+        <pose>2.5 -6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_4_2</name>
+        <pose>2.5 -4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_4_3</name>
+        <pose>2.5 -3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_4_4</name>
+        <pose>2.5 -1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_4_5</name>
+        <pose>2.5 0.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_4_6</name>
+        <pose>2.5 1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_4_7</name>
+        <pose>2.5 3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_4_8</name>
+        <pose>2.5 4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_4_9</name>
+        <pose>2.5 6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_4_10</name>
+        <pose>2.5 7.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_5_0</name>
+        <pose>5.0 -7.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_5_1</name>
+        <pose>5.0 -6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_5_2</name>
+        <pose>5.0 -4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_5_3</name>
+        <pose>5.0 -3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_5_4</name>
+        <pose>5.0 -1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_5_5</name>
+        <pose>5.0 0.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_5_6</name>
+        <pose>5.0 1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_5_7</name>
+        <pose>5.0 3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_5_8</name>
+        <pose>5.0 4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_5_9</name>
+        <pose>5.0 6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_5_10</name>
+        <pose>5.0 7.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_6_0</name>
+        <pose>7.5 -7.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_6_1</name>
+        <pose>7.5 -6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_6_2</name>
+        <pose>7.5 -4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_6_3</name>
+        <pose>7.5 -3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_6_4</name>
+        <pose>7.5 -1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_6_5</name>
+        <pose>7.5 0.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_6_6</name>
+        <pose>7.5 1.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_6_7</name>
+        <pose>7.5 3.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_6_8</name>
+        <pose>7.5 4.5 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_6_9</name>
+        <pose>7.5 6.0 0 0 0 0</pose>
+    </include>
+        
+
+    <include>
+        <uri>model://tree</uri>
+        <name>tree_6_10</name>
+        <pose>7.5 7.5 0 0 0 0</pose>
+    </include>
+    
+  </world>
+</sdf>

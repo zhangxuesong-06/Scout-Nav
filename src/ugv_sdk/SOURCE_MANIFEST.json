@@ -1,0 +1,551 @@
+{
+  "repo": "https://github.com/agilexrobotics/ugv_sdk",
+  "commit": "f2704eacdc90357078cd93ec60aae08bb4baab35",
+  "files": [
+    {
+      "path": ".gitmodules",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6889aed06052875cd3df8f39c24c4065a3e7237f",
+      "size": 102,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/6889aed06052875cd3df8f39c24c4065a3e7237f"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "95bc7e86707fe2a572c49e0a7487111a464ae94f",
+      "size": 7375,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/95bc7e86707fe2a572c49e0a7487111a464ae94f"
+    },
+    {
+      "path": "LICENSE",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+      "size": 11357,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64"
+    },
+    {
+      "path": "README.md",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "d124933dee65cf560932a3f67eb0273227a4ed3b",
+      "size": 8182,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/d124933dee65cf560932a3f67eb0273227a4ed3b"
+    },
+    {
+      "path": "cmake/ugv_sdkConfig.cmake.in",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a86e487f4c290d7b0b41e7737d95713a947cf37b",
+      "size": 282,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/a86e487f4c290d7b0b41e7737d95713a947cf37b"
+    },
+    {
+      "path": "include/ugv_sdk/details/async_port/async_can.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "85ec989968e25f2e17780d90ca9721354931c855",
+      "size": 1697,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/85ec989968e25f2e17780d90ca9721354931c855"
+    },
+    {
+      "path": "include/ugv_sdk/details/async_port/async_serial.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0578d468c00d0880486d2147ec7ee8a4a818aedb",
+      "size": 1896,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/0578d468c00d0880486d2147ec7ee8a4a818aedb"
+    },
+    {
+      "path": "include/ugv_sdk/details/async_port/ring_buffer.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bbe30ccbc72190583e6f4be9e8a70996cba3b93d",
+      "size": 3740,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/bbe30ccbc72190583e6f4be9e8a70996cba3b93d"
+    },
+    {
+      "path": "include/ugv_sdk/details/interface/agilex_message.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c24a95ae471c81437fecf62d4bae7f2d80941c89",
+      "size": 9399,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/c24a95ae471c81437fecf62d4bae7f2d80941c89"
+    },
+    {
+      "path": "include/ugv_sdk/details/interface/agilex_types.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "294fb3b72dc7395249f86b5000147101a8b7c9fb",
+      "size": 963,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/294fb3b72dc7395249f86b5000147101a8b7c9fb"
+    },
+    {
+      "path": "include/ugv_sdk/details/interface/bunker_interface.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a4ac4c749fea6cfa449ede2960850d60caefe528",
+      "size": 1282,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/a4ac4c749fea6cfa449ede2960850d60caefe528"
+    },
+    {
+      "path": "include/ugv_sdk/details/interface/hunter_interface.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "85ffd9a9579a1fe4ebff7c598240bf449662b7d9",
+      "size": 1355,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/85ffd9a9579a1fe4ebff7c598240bf449662b7d9"
+    },
+    {
+      "path": "include/ugv_sdk/details/interface/ranger_interface.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "51b49fccf227c17a1867723b912196ee1cb0d661",
+      "size": 1890,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/51b49fccf227c17a1867723b912196ee1cb0d661"
+    },
+    {
+      "path": "include/ugv_sdk/details/interface/robot_common_interface.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8b941a89d33334e0fbab2b5885e1328c8f392c47",
+      "size": 1007,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/8b941a89d33334e0fbab2b5885e1328c8f392c47"
+    },
+    {
+      "path": "include/ugv_sdk/details/interface/scout_interface.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8687ff9a1cbcb48a0d5e0ac5429a58d48553c062",
+      "size": 1753,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/8687ff9a1cbcb48a0d5e0ac5429a58d48553c062"
+    },
+    {
+      "path": "include/ugv_sdk/details/interface/titan_interface.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "25f9e8821f97a60c3c57b2f736dca24c95ed5367",
+      "size": 1402,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/25f9e8821f97a60c3c57b2f736dca24c95ed5367"
+    },
+    {
+      "path": "include/ugv_sdk/details/interface/tracer_interface.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "160494c348440397c637410e233579e71124a4de",
+      "size": 1366,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/160494c348440397c637410e233579e71124a4de"
+    },
+    {
+      "path": "include/ugv_sdk/details/parser_base.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a6301709a27c02367f512432157d036ba673c145",
+      "size": 1434,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/a6301709a27c02367f512432157d036ba673c145"
+    },
+    {
+      "path": "include/ugv_sdk/details/protocol_v1/agilex_msg_parser_v1.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "affcc23ce1732d2f72c4bd3ce4f8d8298717ada0",
+      "size": 786,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/affcc23ce1732d2f72c4bd3ce4f8d8298717ada0"
+    },
+    {
+      "path": "include/ugv_sdk/details/protocol_v1/protocol_v1_parser.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "da3d1dd6e4edb024825f738ae00a35e913fa397d",
+      "size": 2848,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/da3d1dd6e4edb024825f738ae00a35e913fa397d"
+    },
+    {
+      "path": "include/ugv_sdk/details/protocol_v1/robot_limits.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ac8334aff5cf3cb85d343d3845ea4c0b3859e99d",
+      "size": 1606,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/ac8334aff5cf3cb85d343d3845ea4c0b3859e99d"
+    },
+    {
+      "path": "include/ugv_sdk/details/protocol_v2/protocol_v2_parser.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b7b7eaf1b455459f12ea70a2122b7a99addcb61c",
+      "size": 698,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/b7b7eaf1b455459f12ea70a2122b7a99addcb61c"
+    },
+    {
+      "path": "include/ugv_sdk/details/robot_base/agilex_base.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a5e130bb9f5a49703dcdf50286950b6afd9b797a",
+      "size": 13842,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/a5e130bb9f5a49703dcdf50286950b6afd9b797a"
+    },
+    {
+      "path": "include/ugv_sdk/details/robot_base/bunker_base.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "94b7e9a1af50f048edc9231280863211a7f74135",
+      "size": 2524,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/94b7e9a1af50f048edc9231280863211a7f74135"
+    },
+    {
+      "path": "include/ugv_sdk/details/robot_base/hunter_base.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d30735121bd91d9b02795b586146563fa5709e02",
+      "size": 3729,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/d30735121bd91d9b02795b586146563fa5709e02"
+    },
+    {
+      "path": "include/ugv_sdk/details/robot_base/ranger_base.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3df09f46ea878149d216bf580055e6e2f3a31f58",
+      "size": 8868,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/3df09f46ea878149d216bf580055e6e2f3a31f58"
+    },
+    {
+      "path": "include/ugv_sdk/details/robot_base/scout_base.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "36c998acce424f050f288ef8247ffc625648999d",
+      "size": 3646,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/36c998acce424f050f288ef8247ffc625648999d"
+    },
+    {
+      "path": "include/ugv_sdk/details/robot_base/titan_base.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "782182ab2a1e5b93c6ae65388fb6934e9a65bf71",
+      "size": 3147,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/782182ab2a1e5b93c6ae65388fb6934e9a65bf71"
+    },
+    {
+      "path": "include/ugv_sdk/details/robot_base/tracer_base.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0492406dba6ea5d3a5f8622224138f8f5a900c7b",
+      "size": 2952,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/0492406dba6ea5d3a5f8622224138f8f5a900c7b"
+    },
+    {
+      "path": "include/ugv_sdk/mobile_robot/bunker_robot.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f4285139115ce34e94672336fe8fc615295a10f4",
+      "size": 1105,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/f4285139115ce34e94672336fe8fc615295a10f4"
+    },
+    {
+      "path": "include/ugv_sdk/mobile_robot/hunter_robot.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "49915efa8c68a65684485a8151245edddbc13f8b",
+      "size": 1173,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/49915efa8c68a65684485a8151245edddbc13f8b"
+    },
+    {
+      "path": "include/ugv_sdk/mobile_robot/ranger_robot.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "98fcbe6aa0cbaa8d4e27b4841ec228edc93bcefc",
+      "size": 1467,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/98fcbe6aa0cbaa8d4e27b4841ec228edc93bcefc"
+    },
+    {
+      "path": "include/ugv_sdk/mobile_robot/scout_robot.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "33cb95c8e0eb2e0dd902e4584eecafca27879108",
+      "size": 1729,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/33cb95c8e0eb2e0dd902e4584eecafca27879108"
+    },
+    {
+      "path": "include/ugv_sdk/mobile_robot/titan_robot.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a890ed5b7e80246d40e787a6ab68ed21d10dfba6",
+      "size": 1109,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/a890ed5b7e80246d40e787a6ab68ed21d10dfba6"
+    },
+    {
+      "path": "include/ugv_sdk/mobile_robot/tracer_robot.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9f1d2efa1e63793e2a1a415a2943256453b3eb96",
+      "size": 1218,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/9f1d2efa1e63793e2a1a415a2943256453b3eb96"
+    },
+    {
+      "path": "include/ugv_sdk/utilities/protocol_detector.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7c9aeb02e58f2fd91e0508d579f8ef2a451bc642",
+      "size": 702,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/7c9aeb02e58f2fd91e0508d579f8ef2a451bc642"
+    },
+    {
+      "path": "package.xml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0ef722a2f9afd9e6a94fa27f21d14862d15c055b",
+      "size": 626,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/0ef722a2f9afd9e6a94fa27f21d14862d15c055b"
+    },
+    {
+      "path": "sample/CMakeLists.txt",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "764a724bd3bc80539e43826bfd6c62875648eab4",
+      "size": 186,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/764a724bd3bc80539e43826bfd6c62875648eab4"
+    },
+    {
+      "path": "sample/bunker_demo/CMakeLists.txt",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "7134cf010c6fd21bd05055d7c5147fd49916a2c6",
+      "size": 104,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/7134cf010c6fd21bd05055d7c5147fd49916a2c6"
+    },
+    {
+      "path": "sample/bunker_demo/bunker_robot_demo.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "02b0cd0cc9b0078bb2a723cda2c4165bfa080902",
+      "size": 2525,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/02b0cd0cc9b0078bb2a723cda2c4165bfa080902"
+    },
+    {
+      "path": "sample/hunter_demo/CMakeLists.txt",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "f120129ed8c110a3822264121f2260da31d48bc2",
+      "size": 104,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/f120129ed8c110a3822264121f2260da31d48bc2"
+    },
+    {
+      "path": "sample/hunter_demo/hunter_robot_demo.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fee3fc4e7a7cdde873194b34f95c488259a4f11c",
+      "size": 3070,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/fee3fc4e7a7cdde873194b34f95c488259a4f11c"
+    },
+    {
+      "path": "sample/ranger_demo/CMakeLists.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9a40c0c6b1a0906485067e8df7484ffc9af6ed11",
+      "size": 104,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/9a40c0c6b1a0906485067e8df7484ffc9af6ed11"
+    },
+    {
+      "path": "sample/ranger_demo/ranger_robot_demo.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "68849dbbbf4b683f5d83885f2c53d41bdef6630d",
+      "size": 4095,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/68849dbbbf4b683f5d83885f2c53d41bdef6630d"
+    },
+    {
+      "path": "sample/scout_demo/CMakeLists.txt",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "539e4c2123b1c7e10711f4ddc895b5084e2ac2b8",
+      "size": 228,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/539e4c2123b1c7e10711f4ddc895b5084e2ac2b8"
+    },
+    {
+      "path": "sample/scout_demo/scout_mini_omni_demo.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cd8a056a8e1e051fbbb7721c45417bfecc8b8e04",
+      "size": 4877,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/cd8a056a8e1e051fbbb7721c45417bfecc8b8e04"
+    },
+    {
+      "path": "sample/scout_demo/scout_robot_demo.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d127138a9c7575417f1a7ba8f637395f683b1473",
+      "size": 5446,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/d127138a9c7575417f1a7ba8f637395f683b1473"
+    },
+    {
+      "path": "sample/tracer_demo/CMakeLists.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d037a3e675cca880768d4b21cd56a1349141036b",
+      "size": 104,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/d037a3e675cca880768d4b21cd56a1349141036b"
+    },
+    {
+      "path": "sample/tracer_demo/tracer_robot_demo.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ae3db49e681805367c605284b71e54c29bf91d44",
+      "size": 2441,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/ae3db49e681805367c605284b71e54c29bf91d44"
+    },
+    {
+      "path": "sample/utils_demo/CMakeLists.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1abefe5dbaa9baa2c2355bce2840f760b59d384d",
+      "size": 228,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/1abefe5dbaa9baa2c2355bce2840f760b59d384d"
+    },
+    {
+      "path": "sample/utils_demo/demo_protocol_detector.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b446cf7ed7b626bee0b70c9eefa0a1fa8d02f516",
+      "size": 803,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/b446cf7ed7b626bee0b70c9eefa0a1fa8d02f516"
+    },
+    {
+      "path": "sample/utils_demo/demo_robot_version.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c389d9bd9c4809522e7779e43b10dfc6787749d2",
+      "size": 1777,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/c389d9bd9c4809522e7779e43b10dfc6787749d2"
+    },
+    {
+      "path": "src/async_port/async_can.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b04d0124175ab255312680b67ddc3030aefd41d9",
+      "size": 3679,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/b04d0124175ab255312680b67ddc3030aefd41d9"
+    },
+    {
+      "path": "src/async_port/async_serial.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d224452c2fbc0a63ec728e073d31a5e34fd3de5b",
+      "size": 4525,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/d224452c2fbc0a63ec728e073d31a5e34fd3de5b"
+    },
+    {
+      "path": "src/mobile_robot/bunker_robot.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "986c3e86a53ea525da0c4b0812facbe9fe5c698f",
+      "size": 1653,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/986c3e86a53ea525da0c4b0812facbe9fe5c698f"
+    },
+    {
+      "path": "src/mobile_robot/hunter_robot.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4bff2fe3abed97bbb0a64efc755487cd887fcb6a",
+      "size": 1893,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/4bff2fe3abed97bbb0a64efc755487cd887fcb6a"
+    },
+    {
+      "path": "src/mobile_robot/ranger_robot.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c0987fd6d2152f6e90a587ea0dc3b377c1e2dd28",
+      "size": 2379,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/c0987fd6d2152f6e90a587ea0dc3b377c1e2dd28"
+    },
+    {
+      "path": "src/mobile_robot/scout_robot.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1e6b63a976b5f09475657e6eca5b2787da54be71",
+      "size": 2917,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/1e6b63a976b5f09475657e6eca5b2787da54be71"
+    },
+    {
+      "path": "src/mobile_robot/titan_robot.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "97d92d2cb1450cec356205b72882307f476cec7a",
+      "size": 1793,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/97d92d2cb1450cec356205b72882307f476cec7a"
+    },
+    {
+      "path": "src/mobile_robot/tracer_robot.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ec33777813a8590eaca1a3ff64bc4172edd12280",
+      "size": 1962,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/ec33777813a8590eaca1a3ff64bc4172edd12280"
+    },
+    {
+      "path": "src/protocol_v1/agilex_msg_parser_v1.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bcf5956161298e24a24ee72ba67ed65c12a5cbab",
+      "size": 6436,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/bcf5956161298e24a24ee72ba67ed65c12a5cbab"
+    },
+    {
+      "path": "src/protocol_v1/agilex_protocol_v1.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "366d3ab5ad875def62f33234baaed39c07df0175",
+      "size": 5142,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/366d3ab5ad875def62f33234baaed39c07df0175"
+    },
+    {
+      "path": "src/protocol_v2/agilex_msg_parser_v2.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "13ec16542e9fa586cdf4d34c84c74bea40154970",
+      "size": 26417,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/13ec16542e9fa586cdf4d34c84c74bea40154970"
+    },
+    {
+      "path": "src/protocol_v2/agilex_msg_parser_v2.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aa3593ac9d23ba63db3560acc517629e37b28c3a",
+      "size": 836,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/aa3593ac9d23ba63db3560acc517629e37b28c3a"
+    },
+    {
+      "path": "src/protocol_v2/agilex_protocol_v2.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "80af2499698d0afab553b912b63627c9244ed39a",
+      "size": 10441,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/80af2499698d0afab553b912b63627c9244ed39a"
+    },
+    {
+      "path": "src/protocol_v2/protocol_v2_parser.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0e36a6f022276e6070f045d22ba1e9aaa7f18b8d",
+      "size": 820,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/0e36a6f022276e6070f045d22ba1e9aaa7f18b8d"
+    },
+    {
+      "path": "src/utilities/protocol_detector.cpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2c475099dfcfe468ba122ae04ea982bd0589aaae",
+      "size": 1487,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/2c475099dfcfe468ba122ae04ea982bd0589aaae"
+    },
+    {
+      "path": "src/utilities/stopwatch.hpp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "24ee06f636fe41beed3ae8752f27e83d9e01d709",
+      "size": 4901,
+      "url": "https://api.github.com/repos/agilexrobotics/ugv_sdk/git/blobs/24ee06f636fe41beed3ae8752f27e83d9e01d709"
+    }
+  ],
+  "omitted": "docs and unused tests; all source files match upstream Git blob SHA-1"
+}

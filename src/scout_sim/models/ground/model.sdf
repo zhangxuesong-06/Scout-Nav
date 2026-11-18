@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.8">
+  <model name="ground">
+    <static>true</static>
+    <link name="link">
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <scale>10 10 10</scale>
+            <uri>model://ground/meshes/ground.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="branch">
+        <geometry>
+          <mesh>
+            <scale>10 10 10</scale>
+            <uri>model://ground/meshes/ground.dae</uri>
+            <submesh>
+              <name>Plane</name>
+            </submesh>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>
