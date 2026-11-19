@@ -169,16 +169,52 @@ bash ~/scout/scripts/grape_follow.bash confidence:=0.15 show_window:=true
 该入口仅发布候选速度；支持上表中的检测、速度、深度有效像素、窗口、目标、模型、解释器与
 `profile` 参数，不支持 `depth_speckle_size`、`auto_enable`、`allow_approximate_mount`、`start_hardware`。
 
-仿真：
+## Gazebo 仿真
+
+编译后即可启动 ROS 2 Humble + Gazebo Fortress 仿真，无需连接实车或相机：
 
 ```bash
-bash ~/scout/scripts/sim.bash
+bash ~/scout/scripts/sim.bash  # 默认场景 clearpath_playpen
+bash ~/scout/scripts/list_sim_worlds.bash  # 列出可用场景
 bash ~/scout/scripts/sim.bash world:=orchard camera_pitch_deg:=20 rviz:=true
-bash ~/scout/scripts/list_sim_worlds.bash
 ```
 
-还可追加 `gui:=false`、`camera:=false`、`static_environment:=false`、`software_rendering:=true`、
-`x:=0.0 y:=-2.0 yaw:=0.0`。仿真控制终端使用 `source ~/scout/scripts/sim_env.bash`；详情见 [SIMULATION.md](SIMULATION.md)。
+`camera_pitch_deg` 为相机向下俯角（默认 `0°`）；`x`、`y`、`yaw` 为初始位姿（默认 `0`、`-2`、`0`，单位米、弧度）。
+可追加 `gui:=false` 关闭 Gazebo 窗口、`software_rendering:=true` 使用软件渲染、
+`camera:=false` 关闭 RGB-D、`static_environment:=false` 让场景中的可移动道具参与物理仿真。
+用 `bash ~/scout/scripts/sim.bash --show-args` 查看全部参数。
+
+**视觉跟随：** 保持仿真运行并开启 RGB-D，在新终端执行：
+
+```bash
+source ~/scout/scripts/sim_env.bash
+PYTHONNOUSERSITE=1 YOLO_OFFLINE=true ros2 run \
+  --prefix "$HOME/scout/.venv-yolo-train/bin/python" scout_visual_follow visual_follow --ros-args \
+  -p model_path:="$HOME/scout/src/scout_visual_follow/models/yolov8n.pt" \
+  -p use_sim_time:=true -p depth_registered:=true -p show_window:=true \
+  -p 'device:="0"' -p confidence:=0.20 -p min_box_area:=200.0 \
+  -p cmd_vel_topic:=/scout_sim/cmd_vel
+```
+
+窗口中按 `i` → 输入检测框 ID → 回车开始跟随，`c` 取消。无 GPU 时改用 `-p device:=cpu`。
+`sim_env.bash` 将仿真和实机隔离在不同的 ROS 域中；每个查看或控制仿真的终端都先加载它。
+按需执行以下查看命令：
+
+```bash
+source ~/scout/scripts/sim_env.bash
+ros2 topic echo /scout_sim/cmd_vel                 # 仿真指令速度
+ros2 topic echo /scout/odom --field twist.twist   # 仿真里程计速度
+ros2 topic echo /scout/follow_targets --field data # 跟随状态和停车原因
+```
+
+**手动试车：** 先退出视觉跟随，再向 `/scout_sim/cmd_vel` 发指令，按 `Ctrl+C` 后约 0.5 秒自动停车：
+
+```bash
+source ~/scout/scripts/sim_env.bash
+ros2 topic pub -r 10 /scout_sim/cmd_vel geometry_msgs/msg/Twist '{linear: {x: 0.1}}'
+```
+
+场景、话题和仿真检查详见 [SIMULATION.md](SIMULATION.md)。
 
 ## 建图与导航入口
 
