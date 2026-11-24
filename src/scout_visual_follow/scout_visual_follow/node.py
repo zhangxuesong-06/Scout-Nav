@@ -21,6 +21,7 @@ from std_msgs.msg import String
 from tf2_ros import Buffer, TransformListener
 
 from .depth_control import DistanceController, measure_target_depth
+from .follow_parameters import DEFAULT_APPROACH, DEFAULT_MAX_DEPTH, DEFAULT_MIN_DEPTH, resolve_approach
 from .geometry import approach_command, transform_point
 
 
@@ -32,9 +33,9 @@ class VisualFollower(Node):
             depth_topic='/nav_camera/depth/image_raw',
             camera_info_topic='/nav_camera/color/camera_info', base_frame='base_link',
             cmd_vel_topic='/scout/follow_cmd_vel', depth_registered=False,
-            stop_distance=0.5, resume_distance=1.0, linear_gain=1.0,
+            **DEFAULT_APPROACH,
             max_linear_speed=0.15, max_angular_speed=0.35,
-            image_timeout=0.6, sync_slop=0.08, min_depth=0.2, max_depth=4.0,
+            image_timeout=0.6, sync_slop=0.08, min_depth=DEFAULT_MIN_DEPTH, max_depth=DEFAULT_MAX_DEPTH,
             show_window=False, target_id=-1,
             auto_target=False, auto_confirm_frames=3, auto_release_frames=3, auto_vertical_margin_px=0,
             confidence=0.2, imgsz=640, min_box_area=2000.0, device='',
@@ -60,11 +61,13 @@ class VisualFollower(Node):
         if not (0 < self.confidence <= 1 and self.imgsz > 0
                 and np.isfinite(self.min_box_area) and self.min_box_area >= 0):
             raise ValueError('Require 0 < confidence <= 1, imgsz > 0 and finite min_box_area >= 0')
-        self.controller = DistanceController(p('stop_distance'), p('resume_distance'),
-                                             p('linear_gain'), p('max_linear_speed'))
-        if not (0 < self.slop <= self.timeout and 0 < self.min_depth < self.controller.stop
-                < self.controller.resume < self.max_depth and self.max_angular > 0):
-            raise ValueError('Invalid depth, distance, timeout or angular parameters')
+        approach = resolve_approach({name: p(name) for name in DEFAULT_APPROACH},
+                                    min_depth=self.min_depth, max_depth=self.max_depth)
+        self.controller = DistanceController(approach['stop_distance'], approach['resume_distance'],
+                                             approach['linear_gain'], p('max_linear_speed'))
+        if not (0 < self.slop <= self.timeout and self.max_angular > 0):
+            raise ValueError('Invalid image timeout, sync slop or angular speed')
+        self.get_logger().info('Approach: ' + ', '.join(f'{name}={value:g}' for name, value in approach.items()))
         try:
             from ultralytics import YOLO
         except ImportError as exc:

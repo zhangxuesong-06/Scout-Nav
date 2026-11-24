@@ -7,9 +7,11 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 from scout_nav_bringup.profile import default_profile, read_profile
+from scout_visual_follow.follow_parameters import DEFAULT_APPROACH, resolve_approach
 
 
 def start(context):
+    approach = resolve_approach({name: LaunchConfiguration(name).perform(context) for name in DEFAULT_APPROACH})
     profile = read_profile(LaunchConfiguration('profile').perform(context))
     camera = profile['camera']
     python = LaunchConfiguration('python_executable').perform(context)
@@ -30,6 +32,7 @@ def start(context):
         'device': ParameterValue(LaunchConfiguration('device').perform(context), value_type=str),
         'max_linear_speed': float(LaunchConfiguration('max_linear_speed').perform(context)),
         'max_angular_speed': float(LaunchConfiguration('max_angular_speed').perform(context)),
+        **approach,
     }])]
 
 
@@ -48,6 +51,7 @@ def generate_launch_description():
         DeclareLaunchArgument('device', default_value=''),
         DeclareLaunchArgument('max_linear_speed', default_value='0.15'),
         DeclareLaunchArgument('max_angular_speed', default_value='0.35'),
+        *(DeclareLaunchArgument(name, default_value=str(value)) for name, value in DEFAULT_APPROACH.items()),
         DeclareLaunchArgument('python_executable', default_value='',
                               description='Optional Python interpreter for the inference node'),
         OpaqueFunction(function=start)])

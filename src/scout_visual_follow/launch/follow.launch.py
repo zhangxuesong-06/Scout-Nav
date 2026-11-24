@@ -10,12 +10,15 @@ from launch.events import Shutdown
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from scout_nav_bringup.profile import default_profile, mount_values, read_profile, require_base, require_camera
+from scout_visual_follow.follow_parameters import DEFAULT_APPROACH, resolve_approach
 
 
 def start(context):
     arg = lambda name: LaunchConfiguration(name).perform(context)
     if arg('start_hardware').lower() != 'true':
         raise ValueError('Real following requires start_hardware:=true explicitly')
+    approach = {name: arg(name) for name in DEFAULT_APPROACH}
+    resolve_approach(approach)  # Validate before checking or starting hardware.
     profile_path = arg('profile')
     profile = read_profile(profile_path)
     require_camera(profile)
@@ -48,7 +51,7 @@ def start(context):
         include(nav / 'camera.launch.py', soft_filter_speckle_size=arg('depth_speckle_size')),
         include(nav / 'mount.launch.py', allow_approximate_mount=arg('allow_approximate_mount')),
         include(nav / 'base.launch.py', start_hardware='true'),
-        include(vision / 'preview.launch.py', **limits, **{name: arg(name) for name in (
+        include(vision / 'preview.launch.py', **limits, **approach, **{name: arg(name) for name in (
             'model_path', 'python_executable', 'confidence', 'imgsz', 'min_box_area',
             'device', 'show_window', 'target_id', 'depth_min_valid_pixels', 'depth_min_valid_ratio')}),
         include(nav / 'motion_gate.launch.py', mode='follow', auto_enable=arg('auto_enable'), **limits),
@@ -65,6 +68,7 @@ def generate_launch_description():
                     confidence='0.10', imgsz='800', min_box_area='200', device='0',
                     show_window='true', target_id='-1', depth_speckle_size='20',
                     depth_min_valid_pixels='20', depth_min_valid_ratio='0.15',
-                    max_linear_speed='0.05', max_angular_speed='0.15')
+                    max_linear_speed='0.05', max_angular_speed='0.15',
+                    **{name: str(value) for name, value in DEFAULT_APPROACH.items()})
     return LaunchDescription([DeclareLaunchArgument(k, default_value=v) for k, v in defaults.items()]
                              + [OpaqueFunction(function=start)])

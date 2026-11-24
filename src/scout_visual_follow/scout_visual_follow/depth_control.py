@@ -57,8 +57,10 @@ def target_distance(depth, encoding, box, image_shape, min_depth=0.15,
 
 class DistanceController:
     def __init__(self, stop=1.0, resume=1.2, gain=0.3, max_speed=0.2):
-        if not (0 < stop < resume and gain > 0 and max_speed > 0):
-            raise ValueError('Require 0 < stop_distance < resume_distance and positive gains/speed')
+        if not (0 < stop < resume < float('inf') and 0 < gain < float('inf')
+                and 0 < max_speed < float('inf')):
+            raise ValueError('Require finite distances with 0 < stop_distance < resume_distance '
+                             'and finite positive gain/speed')
         self.stop, self.resume = stop, resume
         self.gain, self.max_speed = gain, max_speed
         self.stopped = True

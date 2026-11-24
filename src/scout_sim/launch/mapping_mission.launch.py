@@ -14,6 +14,7 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 from scout_sim.mapping_mission import simulation_domain
+from scout_visual_follow.follow_parameters import DEFAULT_APPROACH, resolve_approach
 
 
 def start(context):
@@ -32,11 +33,9 @@ def start(context):
 
     if not simulation_domain():
         raise ValueError('Use sim_env.bash to isolate the simulation')
+    approach = resolve_approach({name: arg(name) for name in DEFAULT_APPROACH})
     get_package_share_directory('rtabmap_slam')
     vision = flag('vision')
-    stop_distance, resume_distance = (float(arg(name)) for name in ('stop_distance', 'resume_distance'))
-    if not 0.0 < stop_distance < resume_distance < float('inf'):
-        raise ValueError('Distances must satisfy 0 < stop_distance < resume_distance')
     database = Path(arg('database')).expanduser().resolve()
     if database.exists():
         raise ValueError(f'Use a new database for each mapping run: {database}')
@@ -73,7 +72,7 @@ def start(context):
                                 'use_sim_time': True, 'depth_registered': True,
                                 'confidence': float(arg('confidence')), 'imgsz': int(arg('imgsz')),
                                 'min_box_area': 200., 'depth_min_valid_ratio': .15,
-                                'stop_distance': stop_distance, 'resume_distance': resume_distance,
+                                **approach,
                                 'max_linear_speed': .14, 'max_angular_speed': .35,
                             }]))
     if flag('rviz'):
@@ -94,7 +93,7 @@ def generate_launch_description():
         'gui': 'false', 'software_rendering': 'true', 'headless_rendering': 'false',
         'rviz': 'false', 'show_window': 'false', 'vision': 'true',
         'grapes': 'false', 'device': 'cpu', 'confidence': '0.35', 'imgsz': '640',
-        'stop_distance': '1.60', 'resume_distance': '1.80',
+        'stop_distance': '1.60', 'resume_distance': '1.80', 'linear_gain': str(DEFAULT_APPROACH['linear_gain']),
     }
     return LaunchDescription([*[DeclareLaunchArgument(n, default_value=v) for n, v in defaults.items()],
                               OpaqueFunction(function=start)])

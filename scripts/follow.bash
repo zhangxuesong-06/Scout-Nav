@@ -12,11 +12,24 @@ for _scout_follow_arg in "$@"; do
   fi
 done
 if [[ " $* " != *" --show-args "* && " $* " != *" -s "* ]]; then
-  # Check identity and configuration before asking sudo to bring up a DOWN port.
-  _scout_follow_port="$(python - "$_scout_follow_profile" <<'PY'
+  # Validate tuning and hardware identity before asking sudo to bring up a DOWN port.
+  _scout_follow_port="$(python - "$_scout_follow_profile" "$@" <<'PY'
 import json, subprocess, sys
 from ament_index_python.packages import get_package_prefix
 from scout_nav_bringup.profile import mount_values, read_profile, require_base, require_camera
+from scout_visual_follow.follow_parameters import DEFAULT_APPROACH, resolve_approach
+
+# Match ros2 launch: the last value wins when a launch argument is repeated.
+overrides = {}
+for argument in sys.argv[2:]:
+    name, separator, value = argument.partition(':=')
+    if separator and name in DEFAULT_APPROACH:
+        overrides[name] = value
+try:
+    resolve_approach(overrides)
+except ValueError as exc:
+    raise SystemExit(f'Invalid follow parameters: {exc}') from None
+
 p = read_profile(sys.argv[1])
 require_camera(p)
 mount_values(p, allow_approximate=True)

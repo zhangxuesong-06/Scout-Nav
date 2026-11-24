@@ -83,6 +83,9 @@ bash ~/scout/scripts/follow.bash \
 | `device` | `0` | GPU 编号；可用 `cpu` |
 | `max_linear_speed` | `0.05` | 最大前进速度，m/s，同时限制跟随节点和运动出口 |
 | `max_angular_speed` | `0.15` | 最大转向角速度，rad/s，同时限制两个节点 |
+| `stop_distance` | `0.5` | 到达该距离时停车，m |
+| `resume_distance` | `1.0` | 停车后达到该距离才重新跟随，m |
+| `linear_gain` | `1.0` | 距离差转为前进速度的比例系数；仍受 `max_linear_speed` 限制 |
 | `depth_speckle_size` | `20` | 相机小块深度过滤阈值 |
 | `depth_min_valid_pixels` | `20` | 框中央测距区域所需的最少有效深度像素 |
 | `depth_min_valid_ratio` | `0.15` | 同一区域所需的最低有效深度比例 |
@@ -101,8 +104,8 @@ bash ~/scout/scripts/follow.bash \
 bash ~/scout/scripts/follow.bash --show-args
 ```
 
-停车距离、恢复距离和前进增益目前在 `src/scout_visual_follow/scout_visual_follow/node.py`
-的 `stop_distance=0.5`、`resume_distance=1.0`、`linear_gain=1.0`，尚不支持在上述命令后追加。
+例如 `bash ~/scout/scripts/follow.bash stop_distance:=0.8 resume_distance:=1.2 linear_gain:=0.3`。
+三个值必须是有限数字，满足 `0.2 < stop_distance < resume_distance < 4.0`，且 `linear_gain > 0`。
 修改 `src/` 后重新编译并重启；修改 `config/robot.yaml` 后重启。命令行参数只影响本次运行。
 无窗口时可在另一个已加载环境的终端选择目标：
 
@@ -166,7 +169,7 @@ bash ~/scout/scripts/grape_camera.bash --conf 0.10
 bash ~/scout/scripts/grape_follow.bash confidence:=0.15 show_window:=true
 ```
 
-该入口仅发布候选速度；支持上表中的检测、速度、深度有效像素、窗口、目标、模型、解释器与
+该入口仅发布候选速度；支持上表中的检测、速度、停车和恢复距离、前进增益、深度有效像素、窗口、目标、模型、解释器与
 `profile` 参数，不支持 `depth_speckle_size`、`auto_enable`、`allow_approximate_mount`、`start_hardware`。
 
 ## Gazebo 仿真
@@ -223,7 +226,7 @@ bash ~/scout/scripts/sim_mapping.bash grapes:=true rviz:=true # 加葡萄照片�
 
 沿固定路线建图，连续识别到有深度的葡萄后自动跟随；丢失目标后回到未完成的航点。地图持续更新，数据库默认保存到 `~/scout/maps/sim-*.db`。
 常用参数：`vision:=false` 只建图；`confidence:=0.35`、`imgsz:=640`、`device:=cpu` 调推理；
-`stop_distance:=1.60 resume_distance:=1.80` 调停车/恢复距离（米）；`show_window:=true` 显示检测，`gui:=true` 显示 Gazebo。
+`stop_distance:=1.60 resume_distance:=1.80 linear_gain:=1.0` 调停车/恢复距离（米）和前进增益；`show_window:=true` 显示检测，`gui:=true` 显示 Gazebo。
 用 `bash ~/scout/scripts/sim_mapping.bash --show-args` 查看全部参数。
 
 ```bash

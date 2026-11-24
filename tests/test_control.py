@@ -4,6 +4,7 @@ import pytest
 
 from scout_nav_bringup.motion_gate import CommandPolicy
 from scout_visual_follow.depth_control import DistanceController, measure_target_depth, target_distance
+from scout_visual_follow.follow_parameters import resolve_approach
 from scout_visual_follow.geometry import approach_command, transform_point
 
 
@@ -56,6 +57,29 @@ def test_hysteresis_near_stop_and_invalid_target():
     assert controller.speed(1.1) == 0
     assert controller.speed(10) == 0.2
     assert controller.speed(float('nan')) == 0
+
+
+@pytest.mark.parametrize('overrides,parameter', [
+    ({'stop_distance': '0.2'}, 'stop_distance'),
+    ({'stop_distance': '1.0'}, 'stop_distance'),
+    ({'resume_distance': '4.0'}, 'resume_distance'),
+    ({'resume_distance': 'nan'}, 'resume_distance'),
+    ({'linear_gain': '0'}, 'linear_gain'),
+    ({'linear_gain': '-1'}, 'linear_gain'),
+    ({'linear_gain': 'inf'}, 'linear_gain'),
+    ({'linear_gain': 'fast'}, 'linear_gain'),
+])
+def test_invalid_approach_settings_are_rejected(overrides, parameter):
+    with pytest.raises(ValueError, match=parameter):
+        resolve_approach(overrides)
+
+
+def test_tuned_approach_scales_linear_speed_up_to_unchanged_limit():
+    controller = DistanceController(stop=0.8, resume=1.2, gain=0.1, max_speed=0.05)
+    assert controller.speed(1.1) == 0.0  # Stationary until the resume threshold.
+    assert controller.speed(1.2) == pytest.approx(0.04)
+    assert controller.speed(1.8) == 0.05
+    assert controller.speed(0.8) == 0.0
 
 
 def test_tilt_and_camera_offset_transform_optical_target_to_base():
