@@ -45,6 +45,7 @@ def test_only_a_near_start_slam_match_can_confirm_the_route():
     assert mission.step(5., (.32, 0., 0.), None, True)[0] == 'waypoint_reached'
     assert mission.step(5.05, (.32, 0., 0.), None, True) == ('loop_closed', 0., 0.)
     assert mission.closure == (101, 5)
+    assert mission.step(5.1, (.32, 0., 0.), None, True) == ('wander_blocked', 0., 0.)
 
 
 def test_old_or_future_images_cannot_keep_the_simulation_moving():

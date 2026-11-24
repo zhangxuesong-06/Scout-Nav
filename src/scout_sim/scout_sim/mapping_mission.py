@@ -1,4 +1,4 @@
-"""Drive the fixed simulation course, yielding to a confirmed RGB-D target."""
+"""Close a visual mapping loop, then roam the grid and yield to RGB-D targets."""
 import json
 import math
 import os
@@ -7,24 +7,26 @@ import time
 import rclpy
 from geometry_msgs.msg import TransformStamped, Twist
 from nav_msgs.msg import OccupancyGrid, Odometry
-from rclpy.clock import Clock
+from rclpy.clock import Clock, JumpThreshold
+from rclpy.duration import Duration
 from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile
 from rclpy.time import Time
 from std_msgs.msg import String
 from tf2_ros import Buffer, TransformBroadcaster, TransformException, TransformListener
+from .map_roam import FreeMap, Roam, angle
 
 COURSE = ((2.4, 0.), (2.4, 1.8), (0., 1.8), (0., 0.), (.32, 0.))
 MAX_LAPS = 2
 
 
+class SimulationClockRewound(Exception):
+    """Exit the mission after Gazebo resets the simulation timeline."""
+
+
 def simulation_domain():
     return os.environ.get('ROS_DOMAIN_ID') in {'42', *(str(n) for n in range(190, 200))}
-
-
-def angle(a):
-    return math.atan2(math.sin(a), math.cos(a))
 
 
 def yaw(q):
@@ -41,13 +43,17 @@ def fresh_vision(now, sim_seconds, received, image_stamp):
 
 class Mission:
     """The route advances only while mapping owns the motion output."""
-    def __init__(self):
+    def __init__(self, wander=True, wander_speed=.12):
         self.start = None
         self.waypoint = self.laps = 0
         self.closure = None
         self.departed = False
         self.tracking = False
+        self.tracked_id = None
         self.resume_at = 0.
+        self.closed = False
+        self.roam = Roam(wander_speed) if wander else None
+        self.grid = None
 
     def record_closure(self, pose, source, match):
         if (self.closure is None and self.departed and source > 0 and match > 0
@@ -59,30 +65,43 @@ class Mission:
     def step(self, now, pose, vision, ready):
         if not ready:
             self.tracking = False
+            self.tracked_id = None
+            if self.roam:
+                self.roam.reset()
             self.resume_at = now + .5
             return 'waiting_for_inputs', 0., 0.
         if self.start is None:
             self.start = pose
+        if self.laps and self.closure and not self.closed:
+            self.closed = True
+            return 'loop_closed', 0., 0.
         if vision and vision['selected_id'] is not None:
             valid = vision['control_state'] in ('following', 'distance_hold')
-            if not self.tracking:
+            if not self.tracking or self.tracked_id != vision['selected_id']:
                 if not valid:
                     return 'target_lost', 0., 0.
                 self.tracking = True
+                self.tracked_id = vision['selected_id']
+                if self.roam:
+                    self.roam.reset()
                 return 'target_acquired', 0., 0.
             if not valid:
                 return 'target_lost', 0., 0.
             if vision['control_state'] == 'distance_hold':
                 return 'distance_hold', 0., 0.
             linear, angular = vision['command']
-            return 'following', max(0., min(linear, .14)), clamp(angular, .35)
+            speed, turn = max(0., min(linear, .14)), clamp(angular, .35)
+            if self.closed and self.roam and (self.grid is None or not self.grid.motion_clear(pose, speed, turn)):
+                return 'follow_blocked_by_map', 0., 0.
+            return 'following', speed, turn
         if self.tracking:
             self.tracking = False
+            self.tracked_id = None
             self.resume_at = now + .5
         if now < self.resume_at:
-            return 'stopping_before_mapping', 0., 0.
-        if self.laps and self.closure:
-            return 'loop_closed', 0., 0.
+            return ('stopping_before_wander' if self.closed and self.roam else 'stopping_before_mapping'), 0., 0.
+        if self.closed:
+            return self.roam.step(now, pose, self.grid) if self.roam else ('loop_closed', 0., 0.)
         if self.laps >= MAX_LAPS:
             return 'loop_not_confirmed', 0., 0.
         sx, sy, start_yaw = self.start
@@ -111,8 +130,13 @@ class MappingMission(Node):
         from rtabmap_msgs.msg import Info
 
         self.declare_parameter('vision_enabled', True)
+        self.declare_parameter('wander', True)
+        self.declare_parameter('wander_speed', .12)
         self.vision_enabled = self.get_parameter('vision_enabled').value
-        self.mission = Mission()
+        speed = self.get_parameter('wander_speed').value
+        if not 0 < speed <= .15:
+            raise ValueError('wander_speed must be in (0, 0.15] m/s')
+        self.mission = Mission(self.get_parameter('wander').value, speed)
         self.last_odom = self.last_slam = self.last_vision = None
         self.vision = None
         self.grid_ready = False
@@ -134,7 +158,14 @@ class MappingMission(Node):
                 String, '/scout/follow_targets', self.target, 5))
         self.commands = self.create_publisher(Twist, '/scout_sim/cmd_vel', 1)
         self.status = self.create_publisher(String, '/scout_sim/mapping_state', 1)
+        self.clock_rewound = False
+        self.clock_jump_handle = self.get_clock().create_jump_callback(
+            JumpThreshold(min_forward=None, min_backward=Duration(seconds=-.1), on_clock_change=False),
+            post_callback=self.clock_jump)
         self.create_timer(.05, self.tick, clock=Clock())  # stop even if /clock pauses
+
+    def clock_jump(self, _jump):
+        self.clock_rewound = True
 
     def odometry(self, msg):
         if msg.header.frame_id != 'world' or msg.child_frame_id != 'base_link':
@@ -160,7 +191,16 @@ class MappingMission(Node):
             self.pending_closure = (msg.ref_id, msg.loop_closure_id, msg.header.stamp)
 
     def map_update(self, msg):
-        self.grid_ready = msg.info.width > 0 and msg.info.height > 0
+        info = msg.info
+        try:
+            if msg.header.frame_id != 'map':
+                raise ValueError('Expected map frame')
+            p = info.origin.position
+            self.mission.grid = FreeMap(msg.data, info.width, info.height, info.resolution,
+                                        (p.x, p.y, yaw(info.origin.orientation)))
+        except ValueError:
+            self.mission.grid = None
+        self.grid_ready = self.mission.grid is not None
 
     def target(self, msg):
         try:
@@ -183,6 +223,12 @@ class MappingMission(Node):
             return None
 
     def tick(self):
+        if self.clock_rewound:
+            self.commands.publish(Twist())
+            self.get_logger().error('Simulation clock moved backwards; stopping this mapping run. '
+                                    'Restart the launch to rebuild TF and open a fresh map database.')
+            # Unwind spin before shutdown; the executor is still running this callback.
+            raise SimulationClockRewound()
         now, sim = time.monotonic(), self.get_clock().now().nanoseconds
         pose = self.pose()
         vision_ok = (not self.vision_enabled or (self.vision is not None and fresh_vision(
@@ -212,6 +258,10 @@ class MappingMission(Node):
             self.status.publish(String(data=json.dumps(dict(
                 state=state, pose=pose, completed_laps=self.mission.laps,
                 waypoint=self.mission.waypoint, closure=self.mission.closure,
+                phase='closed_map' if self.mission.closed else 'mapping',
+                wander_goal=self.mission.roam.goal if self.mission.roam else None,
+                detected_ids=[det['id'] for det in self.vision.get('targets', [])] if vision_ok and self.vision else [],
+                selected_id=self.vision['selected_id'] if vision_ok and self.vision else None,
                 command=[linear, angular], vision_ready=bool(vision_ok), odom_ready=bool(odom_ok),
                 slam_ready=bool(slam_ok), map_ready=self.grid_ready))))
             self.last_status = now
@@ -223,7 +273,7 @@ def main():
     try:
         node = MappingMission()
         rclpy.spin(node)
-    except (KeyboardInterrupt, ExternalShutdownException):
+    except (KeyboardInterrupt, ExternalShutdownException, SimulationClockRewound):
         pass
     finally:
         if node is not None:

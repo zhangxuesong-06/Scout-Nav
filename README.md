@@ -221,20 +221,22 @@ ros2 topic pub -r 10 /scout_sim/cmd_vel geometry_msgs/msg/Twist '{linear: {x: 0.
 
 ```bash
 bash ~/scout/scripts/sim_mapping.bash                      # 无葡萄，开识别并绕圈建图
-bash ~/scout/scripts/sim_mapping.bash grapes:=true rviz:=true # 加葡萄照片靶，验证自动切换
+bash ~/scout/scripts/sim_mapping.bash gui:=true rviz:=true grapes:=true # 显示 Gazebo 和 RViz，验证自动切换
 ```
 
-沿固定路线建图，连续识别到有深度的葡萄后自动跟随；丢失目标后回到未完成的航点。地图持续更新，数据库默认保存到 `~/scout/maps/sim-*.db`。
-常用参数：`vision:=false` 只建图；`confidence:=0.35`、`imgsz:=640`、`device:=cpu` 调推理；
+沿固定路线建图，闭环后以最高 `0.12 m/s` 在地图已知可通行区游荡；发现葡萄会接管，丢失后先停车再恢复原任务。数据库默认保存到 `~/scout/maps/sim-*.db`。
+常用参数：`vision:=false` 关闭识别；`wander:=false` 闭环后不游荡；`wander_speed:=0.12` 调游荡限速（最大 `0.15 m/s`）；`confidence:=0.35`、`imgsz:=640`、`device:=cpu` 调推理；
 `stop_distance:=1.60 resume_distance:=1.80 linear_gain:=1.0` 调停车/恢复距离（米）和前进增益；`show_window:=true` 显示检测，`gui:=true` 显示 Gazebo。
+Gazebo 和 RViz 默认都不打开。在启动终端按 `Ctrl+C` 结束整套建图仿真；在监听终端按只结束监听。
 用 `bash ~/scout/scripts/sim_mapping.bash --show-args` 查看全部参数。
 
 ```bash
 source ~/scout/scripts/sim_env.bash
-ros2 topic echo /scout_sim/mapping_state --field data # 任务状态、当前航点、速度和闭环编号
+ros2 topic echo /scout_sim/mapping_state std_msgs/msg/String --field data
 ```
 
-场景、话题和仿真检查详见 [SIMULATION.md](SIMULATION.md)。
+更新后请重启旧仿真，并在查询终端重新加载 `sim_env.bash`。如需换仿真域，在所有仿真终端先执行 `export SCOUT_SIM_DOMAIN=194`。
+增删葡萄靶的复测命令见 [SIMULATION.md](SIMULATION.md)。
 
 ## 建图与导航入口
 

@@ -12,6 +12,7 @@ from launch.events import Shutdown
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from scout_sim.scene import prepare_scene
+from scout_sim.sim_session import reserve
 
 
 def start(context):
@@ -26,8 +27,11 @@ def start(context):
     if not 1 <= domain <= 232:
         raise ValueError('Use an isolated simulation domain: source ~/scout/scripts/sim_env.bash')
     share = Path(get_package_share_directory('scout_sim'))
-    runtime = Path(tempfile.mkdtemp(prefix='scout_sim_'))
     camera, gui = boolean('camera'), boolean('gui')
+    partition = os.environ.get('IGN_PARTITION', f'scout_sim_{domain}')
+    # Keep the lock for the lifetime of this launch, including child shutdown.
+    context._scout_sim_session = reserve(domain, partition)
+    runtime = Path(tempfile.mkdtemp(prefix='scout_sim_'))
     try:
         scene, urdf, notes = prepare_scene(share, runtime, world=value('world'),
             camera_pitch_deg=float(value('camera_pitch_deg')), x=float(value('x')),
@@ -40,7 +44,7 @@ def start(context):
     # Gazebo's converted SDF uses file paths; RViz loads meshes from ROS URIs.
     robot_description = urdf.replace(f'{share / "meshes"}/', 'package://scout_sim/meshes/')
     env = {'IGN_GAZEBO_RESOURCE_PATH': paths, 'GZ_SIM_RESOURCE_PATH': paths,
-           'IGN_PARTITION': os.environ.get('IGN_PARTITION', f'scout_sim_{domain}'),
+           'IGN_PARTITION': partition,
            'IGN_GAZEBO_LOG_PATH': str(runtime), 'IGN_LOG_PATH': str(runtime),
            'XDG_CACHE_HOME': str(runtime / 'cache')}
     if boolean('software_rendering'):

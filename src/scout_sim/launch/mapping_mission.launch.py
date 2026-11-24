@@ -36,6 +36,9 @@ def start(context):
     approach = resolve_approach({name: arg(name) for name in DEFAULT_APPROACH})
     get_package_share_directory('rtabmap_slam')
     vision = flag('vision')
+    wander, wander_speed = flag('wander'), float(arg('wander_speed'))
+    if not 0.0 < wander_speed <= .15:
+        raise ValueError('wander_speed must be in (0, 0.15] m/s')
     database = Path(arg('database')).expanduser().resolve()
     if database.exists():
         raise ValueError(f'Use a new database for each mapping run: {database}')
@@ -59,7 +62,8 @@ def start(context):
                        simulation='true', localization='false', profile=arg('profile'),
                        simulation_odom_topic='/scout_sim/mapping_odom'),
                Node(package='scout_sim', executable='mapping_mission', output='screen',
-                    parameters=[{'use_sim_time': True, 'vision_enabled': vision}])]
+                    parameters=[{'use_sim_time': True, 'vision_enabled': vision,
+                                 'wander': wander, 'wander_speed': wander_speed}])]
     if vision:
         actions.append(Node(package='scout_visual_follow', executable='visual_follow', output='screen',
                             prefix=shlex.quote(str(Path(arg('python_executable')).expanduser())),
@@ -93,6 +97,7 @@ def generate_launch_description():
         'gui': 'false', 'software_rendering': 'true', 'headless_rendering': 'false',
         'rviz': 'false', 'show_window': 'false', 'vision': 'true',
         'grapes': 'false', 'device': 'cpu', 'confidence': '0.35', 'imgsz': '640',
+        'wander': 'true', 'wander_speed': '0.12',
         'stop_distance': '1.60', 'resume_distance': '1.80', 'linear_gain': str(DEFAULT_APPROACH['linear_gain']),
     }
     return LaunchDescription([*[DeclareLaunchArgument(n, default_value=v) for n, v in defaults.items()],

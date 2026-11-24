@@ -101,33 +101,39 @@ ros2 topic pub --once /scout_sim/cmd_vel geometry_msgs/msg/Twist '{}'
 
 ## RGB-D 闭环与葡萄跟随切换
 
-关闭其他仿真后启动 `bash ~/scout/scripts/sim_mapping.bash grapes:=true rviz:=true`。
-去掉 `grapes:=true` 可测无目标巡航，追加 `vision:=false` 可只跑建图。
+退出同一仿真域中的旧任务后，启动 `bash ~/scout/scripts/sim_mapping.bash gui:=true rviz:=true grapes:=true`。
+`gui` 和 `rviz` 分别打开 Gazebo 和 RViz 窗口，默认都关闭。在启动终端按 `Ctrl+C` 结束整套建图仿真；在监听终端按只结束监听。
+去掉 `grapes:=true` 可测无目标巡航，追加 `vision:=false` 可关闭识别，`wander:=false` 可关闭闭环后的游荡。
 如果 RTAB-Map 是本地解包安装而非系统安装，可在启动前将 `SCOUT_RTABMAP_PREFIX` 设为其 Humble 安装前缀。
 
-任务沿 `mapping_course` 的固定路线巡航，连续三帧识别到同一目标并取得有效深度后停车交接，随后跟随。
-目标丢失的第一帧即停车，连续三帧未能恢复则解除锁定，短暂停车后继续未完成的航点。
-跟随期间 RTAB-Map 不暂停；只有跑完路线并收到起点附近的视觉闭环才报告 `loop_closed`；两圈无闭环报告 `loop_not_confirmed`。
+任务先沿 `mapping_course` 固定路线巡航。跑完路线且收到起点附近的视觉闭环时报告 `loop_closed`，然后在 `/map` 已知空闲区自主选短途目标。未知区域和障碍留出车体间距，没有可行路段时报告 `wander_blocked` 并停车。两圈无闭环报告 `loop_not_confirmed`。
+连续三帧识别到同一目标且有有效深度后停车交接，随后跟随；出现其他葡萄时保持当前锁定。目标丢失的第一帧就停车，连续三帧无效则释放。剩余目标同样需要连续三帧确认；无目标则回到建图航点或游荡。跟随期间 RTAB-Map 不暂停。
 
 ```bash
 source ~/scout/scripts/sim_env.bash
-ros2 topic echo /scout_sim/mapping_state --field data
+ros2 topic echo /scout_sim/mapping_state std_msgs/msg/String --field data
 ```
 
-另开一个加载相同仿真环境的终端，待状态变为 `distance_hold` 后移除照片靶，验证目标丢失后的恢复：
+另开终端可添加第二串或移除照片靶。下面的位置靠近初始靶，是否入镜取决于小车朝向；`add` 的参数为名称、Gazebo 世界坐标 x/y（m）、朝向 yaw（rad，原始靶朝向为 0）：
 
 ```bash
-source ~/scout/scripts/sim_env.bash
-ign service -s /world/scout_world/remove --reqtype ignition.msgs.Entity \
-  --reptype ignition.msgs.Boolean --timeout 4000 --req 'name: "grape_fixture" type: MODEL'
+bash ~/scout/scripts/sim_grape.bash add grape_second 3.02 2.95 0
+bash ~/scout/scripts/sim_grape.bash remove grape_fixture
+bash ~/scout/scripts/sim_grape.bash remove grape_second
 ```
+
+观察 `detected_ids`（检测框 ID）和 `selected_id`（当前锁定），以及 `target_lost`、`stopping_before_wander`、`wandering` 的状态变化。
+更新 DDS 配置后先退出旧仿真，重新启动，并在查询终端重新 `source ~/scout/scripts/sim_env.bash`。域 42 的自动参与者索引现为 0–63；需要另一套隔离仿真时，在各终端统一 `export SCOUT_SIM_DOMAIN=194` 后再加载环境。
+同一 ROS 域只允许一套仿真。启动若提示 `/clock` 已有发布者，用 `ros2 topic info /clock --verbose` 查看，并退出旧仿真；直接重置 Gazebo 时间也会结束建图任务，请重启建图脚本。
 
 占据地图发布到 `/map`，闭环事件发布到 `/scout/rtabmap/info`；退出任务后 RTAB-Map 保存数据库。
 带葡萄验收中，车在约 1.60 m 处停车；移除靶后恢复第 2 个航点，一圈结束确认闭环（RTAB-Map 节点 171 → 5）。
 该次日志与地图快照保存在本机的 `log/simulation/acceptance_grape_final/`。
+闭环后游荡的验收记录在 `log/simulation/wander_continuous/events.jsonl`：小车先后向三个不同的地图目标行驶。
+`log/simulation/wander_trial1/events.jsonl` 记录了闭环后增删两串葡萄的验收：保持原 ID，移除锁定目标时先停车，再锁定仍在视野内的另一串，两串移除后继续游荡。
 四轮仿真的轮式里程计会高估转角，此任务使用 `/scout_sim/mapping_odom` 的 Gazebo 理想里程计，
 闭环约束仍来自仿真 RGB-D 图像；`/scout/odom` 可用于对比。葡萄靶使用实物模型照片纹理，由仓库里的 detection-v1 权重识别。
-此场景用于验证建图和跟随切换；Nav2 自主探索、避障、任意果园场景以及实机建图仍待验收。
+游荡使用占据地图做短途规划及停车检查。Nav2、动态避障、其他果园场景及实机建图仍待验收。
 
 ## 迁移范围与差异
 
