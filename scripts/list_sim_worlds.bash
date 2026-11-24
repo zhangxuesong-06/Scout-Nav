@@ -9,3 +9,4 @@ for key, entry in json.load(open(sys.argv[1]))['worlds'].items():
         if 'actors replaced' in note or 'wrapper' in note:
             print('    ' + note)
 PY
+printf 'mapping_course\n    RGB-D loop-closure and grape handoff test course\n'

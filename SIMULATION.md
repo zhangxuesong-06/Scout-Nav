@@ -98,7 +98,36 @@ ros2 topic pub --once /scout_sim/cmd_vel geometry_msgs/msg/Twist '{}'
 本包不会把命令发送到实机入口 `/scout/cmd_vel`。
 数据话题名称与导航侧约定一致，但导航节点接入时仍需设置 `use_sim_time:=true`，
 使用独立的仿真外参/轮廓配置，并把最终速度接到上述仿真入口。
-目前尚未完成 RTAB-Map + Nav2 在这些场景中的全流程验收。
+
+## RGB-D 闭环与葡萄跟随切换
+
+关闭其他仿真后启动 `bash ~/scout/scripts/sim_mapping.bash grapes:=true rviz:=true`。
+去掉 `grapes:=true` 可测无目标巡航，追加 `vision:=false` 可只跑建图。
+如果 RTAB-Map 是本地解包安装而非系统安装，可在启动前将 `SCOUT_RTABMAP_PREFIX` 设为其 Humble 安装前缀。
+
+任务沿 `mapping_course` 的固定路线巡航，连续三帧识别到同一目标并取得有效深度后停车交接，随后跟随。
+目标丢失的第一帧即停车，连续三帧未能恢复则解除锁定，短暂停车后继续未完成的航点。
+跟随期间 RTAB-Map 不暂停；只有跑完路线并收到起点附近的视觉闭环才报告 `loop_closed`；两圈无闭环报告 `loop_not_confirmed`。
+
+```bash
+source ~/scout/scripts/sim_env.bash
+ros2 topic echo /scout_sim/mapping_state --field data
+```
+
+另开一个加载相同仿真环境的终端，待状态变为 `distance_hold` 后移除照片靶，验证目标丢失后的恢复：
+
+```bash
+source ~/scout/scripts/sim_env.bash
+ign service -s /world/scout_world/remove --reqtype ignition.msgs.Entity \
+  --reptype ignition.msgs.Boolean --timeout 4000 --req 'name: "grape_fixture" type: MODEL'
+```
+
+占据地图发布到 `/map`，闭环事件发布到 `/scout/rtabmap/info`；退出任务后 RTAB-Map 保存数据库。
+带葡萄验收中，车在约 1.60 m 处停车；移除靶后恢复第 2 个航点，一圈结束确认闭环（RTAB-Map 节点 171 → 5）。
+该次日志与地图快照保存在本机的 `log/simulation/acceptance_grape_final/`。
+四轮仿真的轮式里程计会高估转角，此任务使用 `/scout_sim/mapping_odom` 的 Gazebo 理想里程计，
+闭环约束仍来自仿真 RGB-D 图像；`/scout/odom` 可用于对比。葡萄靶使用实物模型照片纹理，由仓库里的 detection-v1 权重识别。
+此场景用于验证建图和跟随切换；Nav2 自主探索、避障、任意果园场景以及实机建图仍待验收。
 
 ## 迁移范围与差异
 

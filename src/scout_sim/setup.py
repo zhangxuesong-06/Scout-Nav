@@ -12,4 +12,5 @@ setup(name='scout_sim', version='0.1.0', packages=find_packages(), data_files=da
       install_requires=['setuptools'], zip_safe=True,
       maintainer='Scout project maintainers', maintainer_email='maintainers@example.invalid',
       description='Scout Mini Gazebo Fortress simulation', license='BSD-3-Clause',
-      entry_points={'console_scripts': ['command_guard = scout_sim.command_guard:main']})
+      entry_points={'console_scripts': ['command_guard = scout_sim.command_guard:main',
+                                        'mapping_mission = scout_sim.mapping_mission:main']})

@@ -36,6 +36,7 @@ class VisualFollower(Node):
             max_linear_speed=0.15, max_angular_speed=0.35,
             image_timeout=0.6, sync_slop=0.08, min_depth=0.2, max_depth=4.0,
             show_window=False, target_id=-1,
+            auto_target=False, auto_confirm_frames=3, auto_release_frames=3, auto_vertical_margin_px=0,
             confidence=0.2, imgsz=640, min_box_area=2000.0, device='',
             depth_min_valid_pixels=20, depth_min_valid_ratio=0.3,
         )
@@ -86,6 +87,12 @@ class VisualFollower(Node):
         self.closed, self.last_error = False, 0.0
         self.last_stop_log = 0.0
         self.targets, self.next_id, self.max_miss = {}, 0, 8
+        self.auto_target = bool(p('auto_target'))
+        self.auto_confirm, self.auto_release = p('auto_confirm_frames'), p('auto_release_frames')
+        self.auto_vertical_margin = p('auto_vertical_margin_px')
+        if self.auto_confirm < 1 or self.auto_release < 1 or self.auto_vertical_margin < 0:
+            raise ValueError('Automatic selection requires positive frame counts and a nonnegative margin')
+        self.auto_candidate, self.auto_hits, self.auto_misses, self.auto_stamp = None, 0, 0, 0
         self.target_id, self.input_mode, self.input_buffer = None, False, ''
         self.last_target_param = None
         self.pub = self.create_publisher(Twist, p('cmd_vel_topic'), 1)
@@ -104,9 +111,10 @@ class VisualFollower(Node):
         self.tf_listener = TransformListener(self.tf_buffer, self)
         self.watchdog = threading.Thread(target=self.watch, daemon=True)
         self.watchdog.start()
+        selection = ('Automatic target selection is enabled.' if self.auto_target else
+                     'Select an ID with target_id parameter, or i / digits / Enter in GUI; c cancels.')
         self.get_logger().info('Preview: /scout/follow_preview; commands: /scout/follow_cmd_vel. '
-                               'An external motion gate controls whether the base moves. '
-                               'Select an ID with target_id parameter, or i / digits / Enter in GUI; c cancels.')
+                               'An external motion gate controls whether the base moves. ' + selection)
 
     def receive_info(self, msg):
         self.camera_info = msg
@@ -151,7 +159,10 @@ class VisualFollower(Node):
         key = cv2.waitKey(1) & 0xff
         if key == 27:
             self.closed = True
-        elif key == ord('c'):
+            return
+        if self.auto_target:
+            return
+        if key == ord('c'):
             self.set_parameters([Parameter('target_id', value=-1)])
             self.input_mode, self.input_buffer = False, ''
             self.stop()
@@ -214,17 +225,54 @@ class VisualFollower(Node):
         t, q = tf.translation, tf.rotation
         return transform_point(optical_point, [t.x, t.y, t.z], [q.x, q.y, q.z, q.w])
 
+    def select_automatic(self, detections, measure, stamp):
+        """Lock one ID only after consecutive fresh depth-valid frames."""
+        if stamp <= self.auto_stamp or stamp - self.auto_stamp > self.timeout:
+            self.target_id, self.auto_candidate = None, None
+            self.auto_hits, self.auto_misses = 0, 0
+        if stamp <= self.auto_stamp:
+            self.auto_stamp = stamp
+            return None, None
+        self.auto_stamp = stamp
+        if self.target_id is not None:
+            target = next((d for d in detections if d['id'] == self.target_id), None)
+            result, point = measure(target)
+            if point is not None and point[0] > 0:
+                self.auto_misses = 0
+            else:
+                self.auto_misses += 1
+                if self.auto_misses >= self.auto_release:
+                    self.target_id, self.auto_candidate = None, None
+                    self.auto_hits, self.auto_misses = 0, 0
+            return result, point
+        # Prefer continuing the candidate's streak over switching to a louder box.
+        for det in sorted(detections, key=lambda d: (d['id'] != self.auto_candidate,
+                                                     -d['confidence'], d['id'])):
+            result, point = measure(det)
+            if point is None or point[0] <= 0:
+                continue
+            self.auto_hits = self.auto_hits + 1 if det['id'] == self.auto_candidate else 1
+            self.auto_candidate = det['id']
+            if self.auto_hits >= self.auto_confirm:
+                self.target_id = det['id']
+                return result, point
+            return None, None
+        self.auto_candidate, self.auto_hits = None, 0
+        return None, None
+
     def process(self, packet):
         started = time.monotonic()
         rgb, depth_msg, received = packet
         if not self.fresh(packet):
             self.stop('stale_rgbd_packet')
             return
-        selected = int(self.get_parameter('target_id').value)
-        if selected != self.last_target_param:
-            self.target_id = selected if selected >= 0 else None
-            self.last_target_param = selected
-            self.stop()
+        auto = self.auto_target
+        if not auto:
+            selected = int(self.get_parameter('target_id').value)
+            if selected != self.last_target_param:
+                self.target_id = selected if selected >= 0 else None
+                self.last_target_param = selected
+                self.stop()
         frame = self.bridge.imgmsg_to_cv2(rgb, 'bgr8')
         depth = self.bridge.imgmsg_to_cv2(depth_msg, 'passthrough')
         if depth_msg.header.frame_id != rgb.header.frame_id:
@@ -241,14 +289,28 @@ class VisualFollower(Node):
                 detections.append(dict(cx=int((x1 + x2) / 2), cy=int((y1 + y2) / 2),
                                        cls=int(cls), confidence=float(confidence), box=(x1, y1, x2, y2)))
         self.assign_ids(detections)
-        target = next((d for d in detections if d['id'] == self.target_id), None)
-        measurement = None if target is None else measure_target_depth(
-            depth, depth_msg.encoding, target['box'], frame.shape, self.min_depth, self.max_depth,
-            min_pixels=self.depth_min_pixels, min_ratio=self.depth_min_ratio)
+        def measure(target):
+            if target is None:
+                return None, None
+            result = measure_target_depth(
+                depth, depth_msg.encoding, target['box'], frame.shape, self.min_depth, self.max_depth,
+                min_pixels=self.depth_min_pixels, min_ratio=self.depth_min_ratio)
+            point = None if result.distance is None else self.point_in_base(target, result.distance, rgb)
+            return result, point
+
+        stamp = rgb.header.stamp.sec + rgb.header.stamp.nanosec * 1e-9
+        if auto:
+            # A vertically clipped box can put its centre on the floor/background.
+            margin = self.auto_vertical_margin
+            candidates = [d for d in detections if d['box'][1] >= margin
+                          and d['box'][3] <= rgb.height - margin] if margin else detections
+            measurement, point = self.select_automatic(candidates, measure, stamp)
+        else:
+            target = next((d for d in detections if d['id'] == self.target_id), None)
+            measurement, point = measure(target)
         distance = None if measurement is None else measurement.distance
-        point = None if distance is None else self.point_in_base(target, distance, rgb)
         state = ('no_selection' if self.target_id is None else
-                 'target_missing' if target is None else
+                 'target_missing' if measurement is None else
                  measurement.reason if distance is None else 'following')
         with self.lock:
             if self.closed:
@@ -272,7 +334,6 @@ class VisualFollower(Node):
             cv2.putText(frame, f"ID:{det['id']} {self.model.names[det['cls']]} {det['confidence']:.2f}",
                         (x1, max(15, y1 - 8)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
         processing_ms = (time.monotonic() - started) * 1000
-        stamp = rgb.header.stamp.sec + rgb.header.stamp.nanosec * 1e-9
         image_age_ms = (self.get_clock().now().nanoseconds * 1e-9 - stamp) * 1000
         status = 'FOLLOWING' if state == 'following' else f'STOP: {state}'
         if state not in ('following', 'no_selection', 'distance_hold'):
@@ -300,6 +361,7 @@ class VisualFollower(Node):
             'selected_id': self.target_id, 'selected_depth_m': distance,
             'selected_point_base_m': None if point is None else [float(v) for v in point],
             'control_state': state, 'image_age_ms': image_age_ms, 'processing_ms': processing_ms,
+            'image_stamp': stamp, 'command': [twist.linear.x, twist.angular.z],
             'depth_valid_pixels': None if measurement is None else measurement.valid_pixels,
             'depth_roi_pixels': None if measurement is None else measurement.roi_pixels,
             'depth_valid_ratio': None if measurement is None else measurement.valid_ratio,

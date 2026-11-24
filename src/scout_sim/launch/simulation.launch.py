@@ -32,32 +32,39 @@ def start(context):
         scene, urdf, notes = prepare_scene(share, runtime, world=value('world'),
             camera_pitch_deg=float(value('camera_pitch_deg')), x=float(value('x')),
             y=float(value('y')), yaw=float(value('yaw')), camera=camera,
-            static_environment=boolean('static_environment'))
+            static_environment=boolean('static_environment'), mapping_grapes=boolean('mapping_grapes'))
     except Exception:
         shutil.rmtree(runtime)
         raise
     paths = str(share / 'models')
+    # Gazebo's converted SDF uses file paths; RViz loads meshes from ROS URIs.
+    robot_description = urdf.replace(f'{share / "meshes"}/', 'package://scout_sim/meshes/')
     env = {'IGN_GAZEBO_RESOURCE_PATH': paths, 'GZ_SIM_RESOURCE_PATH': paths,
            'IGN_PARTITION': os.environ.get('IGN_PARTITION', f'scout_sim_{domain}'),
            'IGN_GAZEBO_LOG_PATH': str(runtime), 'IGN_LOG_PATH': str(runtime),
            'XDG_CACHE_HOME': str(runtime / 'cache')}
     if boolean('software_rendering'):
         env.update(LIBGL_ALWAYS_SOFTWARE='1',
+                   __GLX_VENDOR_LIBRARY_NAME='mesa',
                    __EGL_VENDOR_LIBRARY_FILENAMES='/usr/share/glvnd/egl_vendor.d/50_mesa.json')
     command = ['ign', 'gazebo', '-r', '-v', '3']
     if not gui:
-        command += ['-s', '--headless-rendering']
+        command += ['-s']
+        if boolean('headless_rendering'):
+            command += ['--headless-rendering']
     command.append(str(scene))
     gazebo = ExecuteProcess(cmd=command, output='screen', additional_env=env)
+    wheel_tf = [] if boolean('wheel_tf') else [('/tf', '/scout_sim/wheel_tf')]
     actions = [SetEnvironmentVariable('IGN_PARTITION', env['IGN_PARTITION']),
         LogInfo(msg=f'Scout simulation DDS domain {domain}, world {value("world")}; camera pitch {value("camera_pitch_deg")} deg'),
         *[LogInfo(msg=note) for note in notes],
         gazebo,
         Node(package='robot_state_publisher', executable='robot_state_publisher',
              name='scout_sim_state_publisher', output='screen',
-             parameters=[{'robot_description': urdf, 'use_sim_time': True}]),
+             parameters=[{'robot_description': robot_description, 'use_sim_time': True}]),
         Node(package='ros_gz_bridge', executable='parameter_bridge',
              name='scout_sim_bridge', output='screen',
+             remappings=wheel_tf,
              parameters=[{'config_file': str(share / 'config/bridge.yaml'), 'use_sim_time': True}]),
         Node(package='scout_sim', executable='command_guard', output='screen'),
         RegisterEventHandler(OnProcessExit(target_action=gazebo,
@@ -90,6 +97,12 @@ def generate_launch_description():
         DeclareLaunchArgument('static_environment', default_value='true',
                               description='Freeze legacy movable props for navigation; Scout remains dynamic'),
         DeclareLaunchArgument('software_rendering', default_value='false'),
+        DeclareLaunchArgument('headless_rendering', default_value='true',
+                              description='Use EGL when gui is false; false uses the desktop GLX display'),
+        DeclareLaunchArgument('mapping_grapes', default_value='false',
+                              description='Add the grape photo target to mapping_course'),
+        DeclareLaunchArgument('wheel_tf', default_value='true',
+                              description='Publish wheel odometry on /tf'),
         DeclareLaunchArgument('camera_pitch_deg', default_value='0.0', description='Simulation-only downward pitch in degrees'),
         DeclareLaunchArgument('x', default_value='0.0'), DeclareLaunchArgument('y', default_value='-2.0'),
         DeclareLaunchArgument('yaw', default_value='0.0', description='Spawn yaw in radians'),

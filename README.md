@@ -214,6 +214,23 @@ source ~/scout/scripts/sim_env.bash
 ros2 topic pub -r 10 /scout_sim/cmd_vel geometry_msgs/msg/Twist '{linear: {x: 0.1}}'
 ```
 
+**建图与自动跟随：** 先退出其他仿真。需要 RTAB-Map（克隆步骤已安装；已有工作区缺失时运行 `sudo apt install ros-humble-rtabmap-slam`）。
+
+```bash
+bash ~/scout/scripts/sim_mapping.bash                      # 无葡萄，开识别并绕圈建图
+bash ~/scout/scripts/sim_mapping.bash grapes:=true rviz:=true # 加葡萄照片靶，验证自动切换
+```
+
+沿固定路线建图，连续识别到有深度的葡萄后自动跟随；丢失目标后回到未完成的航点。地图持续更新，数据库默认保存到 `~/scout/maps/sim-*.db`。
+常用参数：`vision:=false` 只建图；`confidence:=0.35`、`imgsz:=640`、`device:=cpu` 调推理；
+`stop_distance:=1.60 resume_distance:=1.80` 调停车/恢复距离（米）；`show_window:=true` 显示检测，`gui:=true` 显示 Gazebo。
+用 `bash ~/scout/scripts/sim_mapping.bash --show-args` 查看全部参数。
+
+```bash
+source ~/scout/scripts/sim_env.bash
+ros2 topic echo /scout_sim/mapping_state --field data # 任务状态、当前航点、速度和闭环编号
+```
+
 场景、话题和仿真检查详见 [SIMULATION.md](SIMULATION.md)。
 
 ## 建图与导航入口

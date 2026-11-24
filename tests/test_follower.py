@@ -10,7 +10,7 @@ from scout_visual_follow.depth_control import DistanceController
 def fake_node():
     commands = []
     node = NS(
-        target_id=0, last_target_param=0,
+        target_id=0, last_target_param=0, auto_target=False,
         get_parameter=lambda name: NS(value=0),
         bridge=NS(imgmsg_to_cv2=lambda msg, encoding: msg.data,
                   cv2_to_imgmsg=lambda frame, encoding: NS(header=None)),
@@ -87,6 +87,51 @@ def test_unregistered_depth_is_rejected():
     packet[1].header.frame_id = 'depth_optical'
     with pytest.raises(ValueError, match='color optical'):
         VisualFollower.process(node, packet)
+
+
+def test_auto_target_waits_for_three_good_frames_and_stops_on_first_bad_depth():
+    import json
+    node, packet, commands = fake_node()
+    node.auto_target, node.target_id = True, None
+    node.auto_confirm = node.auto_release = 3
+    node.auto_vertical_margin = 4
+    node.auto_candidate, node.auto_hits, node.auto_misses, node.auto_stamp = None, 0, 0, 0.
+    node.timeout = .6
+    node.select_automatic = lambda *args: VisualFollower.select_automatic(node, *args)
+    diagnostics = []
+    node.targets_pub.publish = lambda msg: diagnostics.append(json.loads(msg.data))
+    rows = np.array([[0, 10, 100, 100, .9, 0.]])
+    # The detector still reports the clipped box; it is ineligible for motion.
+    class Detector:
+        names = {0: 'grape'}
+
+        def __call__(self, *args, **kwargs):
+            return [NS(boxes=NS(data=NS(cpu=lambda: NS(numpy=lambda: rows))))]
+
+    node.model = Detector()
+
+    def frame(index):
+        packet[0].header.stamp.nanosec = index * 100_000_000
+        VisualFollower.process(node, packet)
+
+    for i in range(3):
+        frame(i)
+        assert diagnostics[-1]['targets'] and node.target_id is None
+    rows[0, 3] = 90
+    frame(3)
+    frame(4)
+    assert node.target_id is None and commands[-1].linear.x == 0
+    frame(5)
+    assert node.target_id is not None and commands[-1].linear.x > 0
+
+    packet[1].data[:] = 0
+    frame(6)
+    assert commands[-1].linear.x == commands[-1].angular.z == 0
+    assert diagnostics[-1]['control_state'] == 'too_few_depth_pixels' and node.target_id is not None
+    frame(7)
+    assert node.target_id is not None
+    frame(8)
+    assert node.target_id is None and diagnostics[-1]['control_state'] == 'no_selection'
 
 
 def test_sparse_grape_depth_and_diagnostic_reasons_without_replaying_old_depth():
